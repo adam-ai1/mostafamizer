@@ -1,0 +1,13 @@
+{
+    "name": "HeyGen",
+    "alias": "heygen",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\HeyGen\\Providers\\HeyGenServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

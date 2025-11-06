@@ -1,0 +1,13 @@
+{
+    "name": "Synthesia",
+    "alias": "synthesia",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Synthesia\\Providers\\SynthesiaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,14 @@
+{
+    "name": "AzureOpenAi",
+    "alias": "azureopenai",
+    "description": "Azure OpenAi delivers advanced AI for chat, content generation, and language processing. Powered by OpenAI models like GPT-4, it enables secure, scalable, and intelligent applications across industries, driving innovation in natural language understanding and enterprise AI solutions.",
+    "keywords": [],
+    "version": "1.0",
+    "priority": 0,
+    "providers": [
+        "Modules\\AzureOpenAi\\Providers\\AzureOpenAiServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

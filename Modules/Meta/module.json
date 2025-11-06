@@ -1,0 +1,14 @@
+{
+    "name": "Meta",
+    "alias": "meta",
+    "description": "Meta Llama is Meta’s open large language model family, providing advanced text generation, reasoning, and code assistance with scalable deployment, fine-tuning support, and enterprise-ready integration for research and applications.",
+    "keywords": [],
+    "priority": 0,
+    "version": "1.0",
+    "providers": [
+        "Modules\\Meta\\Providers\\MetaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

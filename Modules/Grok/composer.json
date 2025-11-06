@@ -1,0 +1,23 @@
+{
+    "name": "techvillage/grok",
+    "description": "",
+    "authors": [
+        {
+            "name": "techvillage",
+            "email": "support@techvill.org"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Grok\\": ""
+        }
+    }
+}

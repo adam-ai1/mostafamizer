@@ -1,0 +1,11 @@
+﻿/node_modules
+/public/storage
+/public/uploads
+/storage
+/bootstrap/cache
+/vendor
+.env
+.phpunit.result.cache
+/.idea
+/.vscode
+.DS_Store
