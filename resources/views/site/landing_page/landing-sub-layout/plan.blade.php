@@ -71,6 +71,19 @@
                                 
                                 @php
                                 
+                                    // Save original features before processing
+                                    $originalFeatures = $package['features'];
+                                    
+                                    // Find "Everything in..." feature first from original features
+                                    $everythingInFeature = [];
+                                    foreach ($originalFeatures as $key => $meta) {
+                                        if (isset($meta['title']) && str_starts_with($meta['title'], 'Everything in')) {
+                                            $everythingInFeature[$key] = $meta;
+                                            unset($package['features'][$key]);
+                                            break;
+                                        }
+                                    }
+                                    
                                     $mainFeature = [];
                                     foreach (Modules\Subscription\Services\PackageService::features() as $key => $value) {
                                         if (isset($package['features'][$key])) {
@@ -79,44 +92,72 @@
                                         }
                                     }
                                     
-                                    $features = $mainFeature + $package['features'];
-                                    $package['features'] = $mainFeature + $package['features'];
+                                    // Build features array with "Everything in" first, then main features, then rest
+                                    $features = $everythingInFeature + $mainFeature + $package['features'];
+                                    $package['features'] = $features;
+                                    $supportedFeatures = $package['supported_features'] ?? [];
                                 @endphp
-                                
-                                <div class="flex flex-col gap-[18px] mt-8">
+
+                                <div class="flex flex-col gap-5 mt-8">
                                     @foreach($features as $meta)
                                         @continue(empty($meta['title']))
-                
+                                        @if ($loop->first && count($supportedFeatures) > 0)
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="text-base text-gray-900 dark:text-white font-semibold">{{ __('Feature Highlights') }}</span>
+                                                <div class="relative group">
+                                                    <!-- Smaller, ash-grey info icon -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 cursor-pointer" fill="none" viewBox="0 0 20 20">
+                                                        <circle cx="10" cy="10" r="9" stroke="#bcbcbc" stroke-width="2" fill="none"/>
+                                                        <path d="M10 7.5a1 1 0 100-2 1 1 0 000 2zM10 9.5v4" stroke="#bcbcbc" stroke-width="1.5" stroke-linecap="round"/>
+                                                    </svg>
+                                                    <!-- Tooltip Dropdown -->
+                                                    
+                                                    <div class="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-64 z-50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200">
+                                                        <div class="bg-white border border-gray-200 rounded-xl shadow-2xl max-h-56 overflow-y-auto p-4 flex flex-col gap-2">
+                                                            <div class="mb-3">
+                                                                <span class="block text-[13px] text-gray-500 font-semibold leading-tight">
+                                                                {{ __('What’s included in your plan:') }}
+                                                                </span>
+                                                            </div>
+                                                            <ul class="flex flex-col gap-2">
+                                                                @foreach($supportedFeatures as $supportedFeature)
+                                                                    <li class="px-4 py-2 bg-gray-50 rounded-lg border border-gray-100 shadow-sm text-gray-800 font-medium transition-colors hover:bg-indigo-50 hover:border-indigo-200 hover:shadow hover:text-indigo-700">
+                                                                        {{ $supportedFeature }}
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
                                         @if ($meta['is_visible'])
-                                            <div class="flex items-center text-color-14 dark:text-white text-16 font-medium font-Figtree gap-[9px]">
+                                            <div class="flex items-center text-color-14 dark:text-white text-base font-medium font-Figtree gap-2">
                                                 @if($meta['status'] == 'Active')
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="11" viewBox="0 0 15 11" 
-                                                    fill="none">
-                                                        <path
-                                                            d="M13.88 1.17017C14.2755 1.56567 14.2755 2.20798 13.88 2.60349L5.77995 10.7035C5.38444 11.099 4.74214 11.099 4.34663 10.7035L0.296631 6.65349C-0.0988769 6.25798 -0.0988769 5.61567 0.296631 5.22017C0.692139 4.82466 1.33444 4.82466 1.72995 5.22017L5.06487 8.55192L12.4498 1.17017C12.8453 0.774658 13.4876 0.774658 13.8831 1.17017H13.88Z"
-                                                            fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="11" fill="none" viewBox="0 0 15 11">
+                                                        <path d="M13.88 1.17017C14.2755 1.56567 14.2755 2.20798 13.88 2.60349L5.77995 10.7035C5.38444 11.099 4.74214 11.099 4.34663 10.7035L0.296631 6.65349C-0.0988769 6.25798 -0.0988769 5.61567 0.296631 5.22017C0.692139 4.82466 1.33444 4.82466 1.72995 5.22017L5.06487 8.55192L12.4498 1.17017C12.8453 0.774658 13.4876 0.774658 13.8831 1.17017H13.88Z" fill="currentColor"/>
                                                     </svg>
                                                 @else
-                                                    <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <svg width="13" height="14" fill="none" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M1.09014 1.59014C1.46032 1.21995 2.06051 1.21995 2.4307 1.59014L6.5 5.65944L10.5693 1.59014C10.9395 1.21995 11.5397 1.21995 11.9099 1.59014C12.28 1.96032 12.28 2.56051 11.9099 2.9307L7.84056 7L11.9099 11.0693C12.28 11.4395 12.28 12.0397 11.9099 12.4099C11.5397 12.78 10.9395 12.78 10.5693 12.4099L6.5 8.34056L2.4307 12.4099C2.06051 12.78 1.46032 12.78 1.09014 12.4099C0.719954 12.0397 0.719954 11.4395 1.09014 11.0693L5.15944 7L1.09014 2.9307C0.719954 2.56051 0.719954 1.96032 1.09014 1.59014Z" fill="#DF2F2F"/>
                                                     </svg>
                                                 @endif
                                                 @if ($meta['type'] != 'number')
-                                                    <span class="break-words"> {{ $meta['title'] }} </span>
+                                                    <span class="break-words"> {{ __($meta['title']) }} </span>
                                                 @elseif ($meta['title_position'] == 'before')
-                                                    <span class="break-words"> {{ $meta['title'] . ': ' }} {{ ($meta['value'] == -1) ? __('Unlimited') : $meta['value'] }} </span>
+                                                    <span class="break-words"> {{ __($meta['title']) . ': ' }} {{ ($meta['value'] == -1) ? __('Unlimited') : $meta['value'] }} </span>
                                                 @else
-                                                    <span class="break-words"> {{ ($meta['value'] == -1 ? __('Unlimited') : $meta['value']) }} {{ $meta['title'] }} </span>
+                                                    <span class="break-words"> {{ ($meta['value'] == -1 ? __('Unlimited') : $meta['value']) }} {{ __($meta['title']) }} </span>
                                                 @endif
                                             </div>
                                         @endif
                                     @endforeach
                                 </div>
+                                
                             </div>
                         </div>
                     @endforeach
                 @endforeach
-                </p>
             </div>
         </div>
         <div id="plan-tab" class="hidden">

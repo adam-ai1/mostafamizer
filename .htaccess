@@ -10,6 +10,9 @@ Options -MultiViews
 
 RewriteEngine On
 
+# Redirect Modules to public/Modules to ensure access via junction
+RewriteRule ^Modules/(.*)$ public/Modules/$1 [L]
+
 # Redirect Trailing Slashes If Not A Folder...
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R=301]

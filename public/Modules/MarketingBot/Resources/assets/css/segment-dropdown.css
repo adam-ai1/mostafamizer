@@ -1,0 +1,68 @@
+/* ============================================
+   Segment Dropdown Styles
+   Enhanced design for segment selection dropdown
+   ============================================ */
+
+/* Segment tag fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Custom checkbox styling */
+.segment-checkbox:checked {
+    background-color: rgb(37, 99, 235);
+    border-color: rgb(37, 99, 235);
+}
+
+.segment-checkbox:checked:hover {
+    background-color: rgb(29, 78, 216);
+    border-color: rgb(29, 78, 216);
+}
+
+.dark .segment-checkbox:checked {
+    background-color: rgb(59, 130, 246);
+    border-color: rgb(59, 130, 246);
+}
+
+.dark .segment-checkbox:checked:hover {
+    background-color: rgb(37, 99, 235);
+    border-color: rgb(37, 99, 235);
+}
+
+/* Smooth scrollbar for segment container */
+#segmentDropdownBtn::-webkit-scrollbar {
+    width: 6px;
+}
+
+#segmentDropdownBtn::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#segmentDropdownBtn::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+
+#segmentDropdownBtn::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+.dark #segmentDropdownBtn::-webkit-scrollbar-thumb {
+    background: #4b5563;
+}
+
+.dark #segmentDropdownBtn::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
+

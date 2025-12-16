@@ -515,28 +515,32 @@ if (!function_exists('timeToGo')) {
         $ago = new DateTime($datetime);
         $diff = $now->diff($ago);
 
-        $diff->w = floor($diff->d / 7);
-        $diff->d -= $diff->w * 7;
+        $weeks = (int) floor($diff->d / 7);
+        $days = $diff->d - ($weeks * 7);
 
-        $string = array(
-            'y' => 'year',
-            'm' => 'month',
-            'w' => 'week',
-            'd' => 'day',
-            'h' => 'hour',
-            'i' => 'minute',
-            's' => 'second',
-        );
-        foreach ($string as $k => &$v) {
-            if ($diff->$k) {
-                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
-            } else {
-                unset($string[$k]);
+        $intervals = [
+            ['value' => $diff->y, 'label' => 'year'],
+            ['value' => $diff->m, 'label' => 'month'],
+            ['value' => $weeks, 'label' => 'week'],
+            ['value' => $days, 'label' => 'day'],
+            ['value' => $diff->h, 'label' => 'hour'],
+            ['value' => $diff->i, 'label' => 'minute'],
+            ['value' => $diff->s, 'label' => 'second'],
+        ];
+
+        $parts = [];
+
+        foreach ($intervals as $interval) {
+            if ($interval['value']) {
+                $parts[] = $interval['value'] . ' ' . $interval['label'] . ($interval['value'] > 1 ? 's' : '');
             }
         }
 
-        if (!$full) $string = array_slice($string, 0, 1);
-        return $string ? implode(', ', $string) . ' ' . $time : 'just now';
+        if (! $full) {
+            $parts = array_slice($parts, 0, 1);
+        }
+
+        return $parts ? implode(', ', $parts) . ' ' . $time : 'just now';
     }
 }
 

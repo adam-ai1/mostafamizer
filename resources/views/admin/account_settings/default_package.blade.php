@@ -49,74 +49,27 @@
                                             value="{{ $defaultPackage ? $defaultPackage->name : '' }}">
                                         </div>
                                     </div>
-                                    <div class="mt-20p row">
-                                        <label for="features_word" class="col-4 control-label require">{{ __('Word') }}</label>
-                                        <div class="col-sm-6 flex-wrap">
-                                            <input type="text"
-                                            @if (preference('is_default_package') == 1)
-                                            required
-                                            @endif
-                                            name="features[word]" 
-                                            placeholder="{{ __('Word') }}"
-                                            id="features_word"
-                                            class="form-control int-number"
-                                            value="{{ $defaultPackage ? $defaultPackage->features['word'] : '1000' }}">
-                                            <label class="mt-1">
-                                                <span class="badge badge-warning me-2">{{ __('Note') }}</span>{{ __('-1 for unlimited') }}
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="mt-20p row">
-                                        <label for="features_image" class="col-4 control-label require">{{ __('Image') }}</label>
-                                        <div class="col-sm-6 flex-wrap">
-                                            <input type="text"
-                                            @if (preference('is_default_package') == 1)
-                                            required
-                                            @endif
-                                            name="features[image]"
-                                            placeholder="{{ __('Image') }}"
-                                            id="features_image"
-                                            class="form-control int-number"
-                                            value="{{ $defaultPackage ? $defaultPackage->features['image'] : '10' }}">
-                                            <label class="mt-1">
-                                                <span class="badge badge-warning me-2">{{ __('Note') }}</span>{{ __('-1 for unlimited') }}
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="mt-20p row">
-                                        <label for="features_minute" class="col-4 control-label require">{{ __('Minute') }}</label>
-                                        <div class="col-sm-6 flex-wrap">
-                                            <input type="text"
-                                            @if (preference('is_default_package') == 1)
-                                            required
-                                            @endif
-                                            name="features[minute]" 
-                                            placeholder="{{ __('Minute') }}"
-                                            id="features_minute"
-                                            class="form-control int-number"
-                                            value="{{ $defaultPackage ? $defaultPackage->features['minute'] : '10' }}">
-                                            <label class="mt-1">
-                                                <span class="badge badge-warning me-2">{{ __('Note') }}</span>{{ __('-1 for unlimited') }}
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="mt-20p row">
-                                        <label for="features_character" class="col-4 control-label require">{{ __('Character') }}</label>
-                                        <div class="col-sm-6 flex-wrap">
-                                            <input type="text"
-                                            @if (preference('is_default_package') == 1)
-                                            required
-                                            @endif
-                                            name="features[character]" 
-                                            placeholder="{{ __('Character') }}"
-                                            id="features_character"
-                                            class="form-control int-number"
-                                            value="{{ $defaultPackage ? $defaultPackage->features['character'] : '10000' }}">
-                                            <label class="mt-1">
-                                                <span class="badge badge-warning me-2">{{ __('Note') }}</span>{{ __('-1 for unlimited') }}
-                                            </label>
-                                        </div>
-                                    </div>
+                                    @foreach($features as $featureKey => $feature)
+                                        @if(isset($feature['type']) && $feature['type'] == 'number' && (!isset($feature['is_visible']) || $feature['is_visible'] == 1) && $featureKey != 'image-resolution')
+                                            <div class="mt-20p row">
+                                                <label for="features_{{ $featureKey }}" class="col-4 control-label require">{{ __($feature['title'] ?? ucfirst(str_replace(['-', '_'], ' ', $featureKey))) }}</label>
+                                                <div class="col-sm-6 flex-wrap">
+                                                    <input type="text"
+                                                    @if (preference('is_default_package') == 1)
+                                                    required
+                                                    @endif
+                                                    name="features[{{ $featureKey }}]" 
+                                                    placeholder="{{ __($feature['title'] ?? ucfirst(str_replace(['-', '_'], ' ', $featureKey))) }}"
+                                                    id="features_{{ $featureKey }}"
+                                                    class="form-control int-number"
+                                                    value="{{ $defaultPackage && isset($defaultPackage->features[$featureKey]) ? $defaultPackage->features[$featureKey] : ($feature['value'] ?? '') }}">
+                                                    <label class="mt-1">
+                                                        <span class="badge badge-warning me-2">{{ __('Note') }}</span>{{ __('-1 for unlimited') }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
                                 </div>
                                 <div class="card-footer p-0">
                                     <div class="form-group row">

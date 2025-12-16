@@ -376,7 +376,7 @@ var _createClass = (function () {
                                 sendingmultiple: function () {},
                                 success: function (a) {
                                     if (a.status == 'success') {
-                                        swal(jsLang('Upload Sucessfully'), {
+                                        swal(jsLang('Upload successfully'), {
                                             icon: "success",
                                             buttons: [false, jsLang('Ok')],
                                         });

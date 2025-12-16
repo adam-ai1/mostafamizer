@@ -16,12 +16,12 @@
                 ?>
                 @foreach ($menus as $menu)
                     <li data-username="form elements advance componant validation masking wizard picker select" class="{{ $menu->class }} nav-item @if($menu->isParent()) pcoded-hasmenu @endif {{ $menu->isLinkActive() ? 'pcoded-trigger active' : '' }}">
-                        <a href='{{ $menu->isParent() ?  "javascript:" : $menu->url("admin") }}' class="nav-link"><span class="pcoded-micon"><i class="{{ $menu->icon }}"></i></span><span class="pcoded-mtext">{{ $menu->label_name }}</span></a>
+                        <a href='{{ $menu->isParent() ?  "javascript:" : $menu->url("admin") }}' class="nav-link"><span class="pcoded-micon"><i class="{{ $menu->icon }}"></i></span><span class="pcoded-mtext">{{ __($menu->label_name) }}</span></a>
                         @if($menu->isParent())
                             <ul class="pcoded-submenu sub-menu-custom">
                                 @foreach ($menu->child as $submenu)
                                     <li class="{{ $submenu->isLinkActive() ? 'active' : '' }}">
-                                        <a href="{{ $submenu->url('admin') }}" class="d-flex align-items-center"> <span class="pcoded-micon"> <i class="{{ $submenu->icon }}"></i></span>{{ $submenu->label_name }} {{ $submenu->class }}</a>
+                                        <a href="{{ $submenu->url('admin') }}" class="d-flex align-items-center"> <span class="pcoded-micon"> <i class="{{ $submenu->icon }}"></i></span>{{ __($submenu->label_name) }} {{ $submenu->class }}</a>
                                     </li>
                                 @endforeach
                             </ul>

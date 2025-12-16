@@ -11,7 +11,7 @@
 
 ## Description
 
-A starter application for new projects. Downsized from Artifism application.
+A starter application for new projects. Downsized from voxcraft Studio application.
 
 
 #### Credentials

@@ -183,6 +183,7 @@ return [
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
+        App\Providers\ChannelManagerServiceProvider::class,
         App\Providers\ModuleServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -247,7 +248,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'AiProviderManager' => App\Facades\AiProviderManager::class
+        'AiProviderManager' => App\Facades\AiProviderManager::class,
+        'ChannelManager' => App\Facades\ChannelManager::class,
     ],
 
 ];

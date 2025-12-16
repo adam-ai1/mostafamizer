@@ -1,0 +1,348 @@
+/* ============================================
+   Custom intlTelInput Styles for v24.1.0
+   Alignment fixes and Dark/Light mode support
+   ============================================ */
+
+/* Main container alignment - ensure it matches input height */
+.iti--separate-dial-code .iti__country-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  left: 0 !important;
+  right: auto !important;
+  top: 0;
+  bottom: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Selected country wrapper */
+.iti--separate-dial-code .iti__selected-country {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+  width: 100%;
+  margin: 0;
+}
+
+/* Primary container with flag and dial code */
+.iti--separate-dial-code .iti__selected-country-primary {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 6px;
+  padding: 0 8px;
+  justify-content: flex-start;
+  line-height: 1;
+}
+
+/* Flag alignment */
+.iti--separate-dial-code .iti__flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  flex-shrink: 0;
+  height: auto;
+}
+
+/* Dial code text alignment */
+.iti--separate-dial-code .iti__selected-dial-code {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  line-height: 1;
+  font-size: inherit;
+  height: 100%;
+}
+
+/* Input field alignment - match contact name input height exactly */
+#contactPhone.iti__tel-input,
+.iti--separate-dial-code input.iti__tel-input {
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+  height: auto;
+  min-height: auto;
+  padding-top: 10px !important; /* Match py-2.5 from contact name */
+  padding-bottom: 10px !important; /* Match py-2.5 from contact name */
+  box-sizing: border-box;
+}
+
+/* Placeholder styling - optimized for better readability */
+/* Light mode placeholder - lighter, less bold (default) */
+#contactPhone::placeholder,
+.iti--separate-dial-code input.iti__tel-input::placeholder {
+  color: #9ca3af !important;
+  opacity: 0.6 !important;
+  font-weight: 400 !important;
+  -webkit-text-fill-color: #9ca3af !important;
+}
+
+/* Dark mode placeholder - lighter, less bold */
+.dark #contactPhone::placeholder,
+.dark .iti--separate-dial-code input.iti__tel-input::placeholder {
+  color: #898989 !important;
+  opacity: 0.6 !important;
+  font-weight: 400 !important;
+  -webkit-text-fill-color: #898989 !important;
+}
+
+/* Ensure the relative container wraps properly and matches height */
+#contactPhone {
+  position: relative;
+  height: auto;
+  display: block;
+}
+
+/* When ITI initializes, make it flex to match parent height */
+.relative .iti {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+}
+
+.iti--separate-dial-code {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+/* Ensure country container matches input height */
+.iti--separate-dial-code .iti__country-container {
+  height: 100%;
+  min-height: 100%;
+}
+
+/* Ensure selected country matches input height */
+.iti--separate-dial-code .iti__selected-country {
+  height: 100%;
+  min-height: 100%;
+}
+
+/* Make sure the input part takes remaining space and matches height */
+.iti--separate-dial-code input.iti__tel-input {
+  flex: 1;
+  height: 100%;
+  min-height: 100%;
+}
+
+/* ============================================
+   Dark Mode Styling
+   ============================================ */
+.dark .iti--separate-dial-code .iti__selected-country-primary {
+  color: #ffffff !important;
+}
+
+.dark .iti__selected-dial-code {
+  color: #ffffff !important;
+}
+
+/* Dial code color for dark mode - higher specificity with WebKit support */
+.dark .iti--separate-dial-code .iti__selected-dial-code,
+.dark .iti--separate-dial-code .iti__selected-country-primary .iti__selected-dial-code,
+.dark .iti--separate-dial-code .iti__selected-dial-code * {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.dark .iti--separate-dial-code .iti__selected-country {
+  background-color: transparent;
+}
+
+.dark .iti--separate-dial-code .iti__selected-country-primary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Dark mode dropdown - comprehensive styling */
+.dark .iti__dropdown-content {
+  background-color: #2d2d2d !important;
+  border-color: #474747 !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark .iti__country-list {
+  background-color: #2d2d2d !important;
+}
+
+.dark .iti__country {
+  color: #ffffff !important;
+}
+
+.dark .iti__country:hover,
+.dark .iti__country.iti__highlight {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+.dark .iti__country-name {
+  color: #ffffff !important;
+}
+
+.dark .iti__dial-code {
+  color: #999999 !important;
+}
+
+.dark .iti__country .iti__dial-code {
+  color: #999999 !important;
+}
+
+.dark .iti__search-input {
+  background-color: #333333 !important;
+  color: #ffffff !important;
+  border-color: #474747 !important;
+}
+
+.dark .iti__search-input:focus {
+  background-color: #333333 !important;
+  color: #ffffff !important;
+  border-color: #474747 !important;
+  outline: none !important;
+}
+
+.dark .iti__search-input::placeholder {
+  color: #898989 !important;
+  opacity: 0.7 !important;
+}
+
+/* Dark mode scrollbar styling */
+.dark .iti__country-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark .iti__country-list::-webkit-scrollbar-track {
+  background: #2d2d2d;
+}
+
+.dark .iti__country-list::-webkit-scrollbar-thumb {
+  background: #474747;
+  border-radius: 4px;
+}
+
+.dark .iti__country-list::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+/* ============================================
+   Light Mode Styling
+   ============================================ */
+.iti--separate-dial-code .iti__selected-country-primary {
+  color: #1f2937;
+}
+
+/* Dial code color for light mode - higher specificity with WebKit support */
+.iti--separate-dial-code .iti__selected-dial-code,
+.iti--separate-dial-code .iti__selected-country-primary .iti__selected-dial-code,
+.iti--separate-dial-code .iti__selected-dial-code * {
+  color: #1f2937 !important;
+  -webkit-text-fill-color: #1f2937 !important;
+}
+
+.iti--separate-dial-code .iti__selected-country-primary:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Light mode dropdown */
+.iti__dropdown-content {
+  background-color: #ffffff;
+  border-color: #ccc;
+}
+
+.iti__country {
+  color: #333333;
+}
+
+.iti__country:hover,
+.iti__country.iti__highlight {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.iti__dial-code {
+  color: #999999;
+}
+
+.iti__search-input {
+  background-color: #ffffff;
+  color: #333333;
+  border-color: #ccc;
+}
+
+.iti__search-input::placeholder {
+  color: #999999;
+}
+
+/* ============================================
+   Arrow styling for both modes
+   ============================================ */
+.iti__arrow {
+  border-top-color: #555;
+}
+
+.dark .iti__arrow {
+  border-top-color: #ffffff;
+}
+
+.iti__arrow--up {
+  border-bottom-color: #555;
+}
+
+.dark .iti__arrow--up {
+  border-bottom-color: #ffffff;
+}
+
+/* ============================================
+   Error Message Positioning for Phone Input
+   ============================================ */
+
+/* Position error messages below the phone input field - ONLY for phone input wrapper */
+.phone-input-wrapper label.error,
+.relative.phone-input-wrapper label.error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  margin-bottom: 0;
+  font-size: 0.75rem;
+  color: #ef4444;
+  display: block !important;
+  z-index: 10;
+  width: 100%;
+  line-height: 1.5;
+}
+
+/* Ensure the phone input wrapper has enough space for error message */
+.phone-input-wrapper {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  min-height: auto;
+}
+
+/* When error is present, add bottom padding to accommodate error message */
+.phone-input-wrapper:has(label.error) {
+  padding-bottom: 20px;
+  margin-bottom: 0;
+}
+
+/* Fallback for browsers that don't support :has() - use class-based approach */
+.phone-input-wrapper.has-error {
+  padding-bottom: 20px;
+  margin-bottom: 0;
+}
+
+/* Dark mode error message color - only for phone input */
+.dark .phone-input-wrapper label.error {
+  color: #f87171;
+}
+
+/* Hide error messages that are incorrectly placed inside iti container */
+.iti label.error {
+  display: none !important;
+}
+
+/* Show error message in the correct position (below phone input) */
+.phone-input-wrapper label.error {
+  display: block !important;
+}

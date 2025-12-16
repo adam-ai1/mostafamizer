@@ -123,6 +123,7 @@ class FrontendController extends Controller
                 'duration' => $package->duration,
                 'button' =>  $buttonClass,
                 'features' => PackageService::editFeature($package, false),
+                'supported_features' => PackageService::supportedFeature($package),
             ];
         }
 

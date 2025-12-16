@@ -124,9 +124,10 @@ class Controller extends BaseController
      * @param  array  $options
      * @return array
      */
-    public function checkExistence($value = null, $tableName, $options = [])
+    // FIX: Made $tableName optional (null by default) to satisfy PHP 8 requirements
+    public function checkExistence($value = null, $tableName = null, $options = [])
     {
-        $name = $options['columnName'] ?? str_replace('_', ' ', $tableName);
+        $name = $options['columnName'] ?? str_replace('_', ' ', (string)$tableName);
         $options = array_merge(['columnName' => 'id', 'getData' => false], $options);
         $data = ['status' => false, 'code' => 400, 'message' => __(':x does not exist.', ['x' => ucfirst($name)])];
 

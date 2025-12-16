@@ -38,7 +38,12 @@ class FeaturePreferenceSettings
                 'position' => '30',
                 'visibility' => true,
             ],
-            
+            [
+                'label' => __('Marketing Bot'),
+                'name' => 'marketing-bot',
+                'position' => '40',
+                'visibility' => true,
+            ]
         ];
 
         // Sort items based on position, placing items without a position at the beginning

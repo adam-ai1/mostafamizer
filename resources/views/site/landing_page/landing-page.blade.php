@@ -95,7 +95,7 @@
                                 <a href="{{ route('users.registration') }}"
                                     class="text-color-14 text-16 font-semibold font-Figtree bg-white py-[13px] xs:px-7 px-3 rounded-lg">{{ __('Register Now') }}</a>
                                 <a href="{{ route('frontend.pricing') }}"
-                                    class="text-white text-16 font-semibold font-Figtree bg-color-14 py-[13px] xs:px-7 px-3 rounded-lg">{{ __('See Pricings') }}</a>
+                                    class="text-white text-16 font-semibold font-Figtree bg-color-14 py-[13px] xs:px-7 px-3 rounded-lg">{{ __('See Princing') }}</a>
                             </div>
                         </div>
                         <img class="lg:-mt-[52px] lg:mb-10 -mb-[33px] lg:ml-0 sm:ml-7 xs:ml-[65px] m-auto lg:w-[479px] lg:h-[452px] md:w-[395px] md:h-[360px] w-[295px] h-[278px] holding-butterfly neg-transition-scale"

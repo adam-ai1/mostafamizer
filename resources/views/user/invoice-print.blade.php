@@ -14,7 +14,7 @@
     <div id="printTable">
         <div>
             <div class="invoice-side">
-                <img class="artifism-logo" src="{{ $logoLight }}" alt="{{ __('Image') }}">
+                <img class="voxcraft-studio-logo" src="{{ $logoLight }}" alt="{{ __('Image') }}">
             </div>
             <div class="address-side">
                 <div>

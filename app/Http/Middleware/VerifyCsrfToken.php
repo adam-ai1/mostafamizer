@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
         '/gateway/pay/*/callback',
         '/gateway/pay/*/payment_webhook',
         'gateway/pay/*/complete',
-        'gateway/pay/*/cancelled'
+        'gateway/pay/*/cancelled',
+        '/marketing-bot/campaigns/whatsapp/webhook/handle',
     ];
 }

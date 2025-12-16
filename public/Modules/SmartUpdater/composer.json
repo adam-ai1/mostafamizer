@@ -1,0 +1,19 @@
+{
+    "name": "modules/smartupdater",
+    "description": "Smart selective module updater for Voxcraft",
+    "type": "library",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Voxcraft",
+            "email": "support@voxcraft.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Modules\\SmartUpdater\\": ""
+        }
+    }
+}

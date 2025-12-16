@@ -4,6 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 class UserPermission
 {
     /**
@@ -14,16 +17,27 @@ class UserPermission
      * @param  string  $level
      * @return mixed
      */
-    public function handle($request, Closure $next, $level)
+    public function handle(Request $request, Closure $next, $level)
     {
         if (Auth::user()->role()->type == 'admin') {
             return $next($request);
         }
 
-        $permission = json_decode(preference('user_permission'));
-
-        if ($permission && property_exists($permission, $level) && $permission->$level == 1) {
-            return abort(404, 'You do not have permission to access this feature.');
+        $featureName =  $level;
+        
+        // Check subscription feature access
+        if (!hasAccess($featureName)) {
+            $message = __('To access this feature, please upgrade your subscription plan.');
+            
+            // Handle API requests
+            if ($request->is('api/*') || $request->wantsJson()) {
+                return response()->json([
+                    'error' => $message,
+                ], 403);
+            }
+            
+            Session::flash('info', $message);
+            return redirect()->route('frontend.pricing');
         }
         return $next($request);
     }

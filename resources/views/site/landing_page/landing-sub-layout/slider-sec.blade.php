@@ -1,8 +1,8 @@
 <div id="digital_art" class="relative 6xl:mt-[120px] mt-[72px]">
-    <img class="absolute w-full h-full dark:hidden hidden md:block neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/bg-two.png') }}" alt="">
-    <img class="absolute w-full h-full md:dark:block hidden neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/dark-bg-two.png') }}" alt="">
-    <img class="absolute w-full h-full md:hidden neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/mobile-bg-2.png') }}" alt="">
-    <img class="absolute w-full h-full md:dark:hidden dark:block hidden neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/mobile-bg-dark-2.png') }}" alt="">
+    <img class="absolute w-full h-full dark:hidden hidden md:block" src="{{ asset('Modules/OpenAI/Resources/assets/image/bg-two.png') }}" alt="">
+    <img class="absolute w-full h-full md:dark:block hidden" src="{{ asset('Modules/OpenAI/Resources/assets/image/dark-bg-two.png') }}" alt="">
+    <img class="absolute w-full h-full md:hidden" src="{{ asset('Modules/OpenAI/Resources/assets/image/mobile-bg-2.png') }}" alt="">
+    <img class="absolute w-full h-full md:dark:hidden dark:block hidden" src="{{ asset('Modules/OpenAI/Resources/assets/image/mobile-bg-dark-2.png') }}" alt="">
     <div class="flex 2xl:flex-row flex-col z-40 relative justify-between gap-11 2xl:gap-4">
         <div class="6xl:pt-[122px] 9xl:ltr:pl-[310px] 8xl:ltr:pl-40 7xl:ltr:pl-32 lg:ltr:pl-16 md:ltr:pl-10 ltr:pl-5 9xl:rtl:pr-[310px] 8xl:rtl:pr-40 7xl:rtl:pr-32 lg:rtl:pr-16 md:rtl:pr-10 rtl:pr-5 pt-12 relative">
             <div class="relative">
@@ -14,17 +14,17 @@
             <p class="text-white 6xl:text-18 text-16 font-Figtree font-normal mt-3 lg:pr-[117px] pr-9 create-ai">{{ __("Create AI art or images from text that turns your imagination into unique images in seconds. Finally, you'll have the perfect picture to match your message.") }}</p>
             <div class="6xl:mt-9 mt-8 relative pl-5 option-create-ai">
                 <div class="flex gap-3 mb-[26px]">
-                    <img class="neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/checkmark.svg') }}"
+                    <img src="{{ asset('Modules/OpenAI/Resources/assets/image/checkmark.svg') }}"
                         alt="{{ __('Image') }}">
                     <p class="font-normal text-18 text-white font-Figtree">{{ __('Various Resulation')}}</p>
                 </div>
                 <div class="flex gap-3 mb-[26px]">
-                    <img class="neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/checkmark.svg') }}"
+                    <img src="{{ asset('Modules/OpenAI/Resources/assets/image/checkmark.svg') }}"
                         alt="{{ __('Image') }}">
                     <p class="font-normal text-18 text-white font-Figtree">{{ __('Royality-free commercial use')}}</p>
                 </div>
                 <div class="flex gap-3">
-                    <img class="neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/checkmark.svg') }}"
+                    <img src="{{ asset('Modules/OpenAI/Resources/assets/image/checkmark.svg') }}"
                         alt="{{ __('Image') }}">
                     <p class="font-normal text-18 text-white font-Figtree">{{ __('No watermark')}}</p>
                 </div>
@@ -46,23 +46,23 @@
                 <div
                     class="swiper 8xl:w-[570px] 6xl:w-[500px] 2xl:h-[780px] h-[576px] 2xl:w-[428px] sm:w-[90%] slider1 absolute 2xl:-bottom-11 md:w-[570px] sm:h-[780px]  bg-transparent">
                     <div class="swiper-wrapper rounded-[30px]">
-                        <div class="swiper-slide w-full h-full rounded-[30px] bg-transparent overflow-hidden"><img class="w-full h-full rounded-[30px] neg-transition-scale"
+                        <div class="swiper-slide w-full h-full rounded-[30px] bg-transparent overflow-hidden"><img class="w-full h-full rounded-[30px]"
                                 src="{{ asset('Modules/OpenAI/Resources/assets/image/deer.png') }}"
                                 alt="{{ __('Image') }}">
                         </div>
-                        <div class="swiper-slide w-full h-full rounded-[30px] bg-transparent overflow-hidden"><img class="w-full h-full rounded-[30px] neg-transition-scale"
+                        <div class="swiper-slide w-full h-full rounded-[30px] bg-transparent overflow-hidden"><img class="w-full h-full rounded-[30px]"
                                 src="{{ asset('Modules/OpenAI/Resources/assets/image/mountain.png') }}"
                                 alt="{{ __('Image') }}">
                         </div>
-                        <div class="swiper-slide w-full h-full rounded-[30px] bg-transparent overflow-hidden"><img class="w-full h-full rounded-[30px] neg-transition-scale"
+                        <div class="swiper-slide w-full h-full rounded-[30px] bg-transparent overflow-hidden"><img class="w-full h-full rounded-[30px]"
                                 src="{{ asset('Modules/OpenAI/Resources/assets/image/ziraffe.png') }}"
                                 alt="{{ __('Image') }}">
                         </div>
-                        <div class="swiper-slide w-full h-full rounded-[30px] bg-transparent overflow-hidden"><img class="w-full h-full rounded-[30px] neg-transition-scale"
+                        <div class="swiper-slide w-full h-full rounded-[30px] bg-transparent overflow-hidden"><img class="w-full h-full rounded-[30px]"
                             src="{{ asset('Modules/OpenAI/Resources/assets/image/potrait.png') }}"
                             alt="{{ __('Image') }}">
                         </div>
-                        <div class="swiper-slide w-full h-full rounded-[30px] bg-transparent overflow-hidden"><img class="w-full h-full rounded-[30px] neg-transition-scale"
+                        <div class="swiper-slide w-full h-full rounded-[30px] bg-transparent overflow-hidden"><img class="w-full h-full rounded-[30px]"
                             src="{{ asset('Modules/OpenAI/Resources/assets/image/sports-car.png') }}"
                             alt="{{ __('Image') }}">
                         </div>
@@ -81,22 +81,22 @@
                                 alt="{{ __('Image') }}">
                         </div>
                         <div class="slide 3xl:h-[230px] 3xl:w-80 w-64 h-[184px]">
-                            <img class="slide-image 3xl:h-[230px] 3xl:w-80 w-64 h-[184px] object-cover rounded-[16px] neg-transition-scale"
+                            <img class="slide-image 3xl:h-[230px] 3xl:w-80 w-64 h-[184px] object-cover rounded-[16px]"
                                 src="{{ asset('Modules/OpenAI/Resources/assets/image/space-ship.png') }}"
                                 alt="{{ __('Image') }}">
                         </div>
                         <div class="slide 3xl:h-[230px] 3xl:w-80 w-64 h-[184px]">
-                            <img class="slide-image 3xl:h-[230px] 3xl:w-80 w-64 h-[184px] object-cover rounded-[16px] neg-transition-scale"
+                            <img class="slide-image 3xl:h-[230px] 3xl:w-80 w-64 h-[184px] object-cover rounded-[16px]"
                                 src="{{ asset('Modules/OpenAI/Resources/assets/image/cloud-human.png') }}"
                                 alt="{{ __('Image') }}">
                         </div>
                         <div class="slide 3xl:h-[230px] 3xl:w-80 w-64 h-[184px]">
-                            <img class="slide-image 3xl:h-[230px] 3xl:w-80 w-64 h-[184px] object-cover rounded-[16px] neg-transition-scale"
+                            <img class="slide-image 3xl:h-[230px] 3xl:w-80 w-64 h-[184px] object-cover rounded-[16px]"
                                 src="{{ asset('Modules/OpenAI/Resources/assets/image/helmet.png') }}"
                                 alt="{{ __('Image') }}">
                         </div>
                         <div class="slide 3xl:h-[230px] 3xl:w-80 w-64 h-[184px]">
-                            <img class="slide-image 3xl:h-[230px] 3xl:w-80 w-64 h-[184px] object-cover rounded-[16px] neg-transition-scale"
+                            <img class="slide-image 3xl:h-[230px] 3xl:w-80 w-64 h-[184px] object-cover rounded-[16px]"
                                 src="{{ asset('Modules/OpenAI/Resources/assets/image/robotics-hand.png') }}"
                                 alt="{{ __('Image') }}">
                         </div>

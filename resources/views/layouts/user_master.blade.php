@@ -36,7 +36,16 @@
         var ACCESS_TOKEN = "{{ !empty($accessToken) ? $accessToken : '' }}";
         var copy = "{{ __('Copy Code') }}";
     </script>
-    <script src="{{ asset('public/assets/js/user/sidebar.min.js') }}"></script>
+    <script src="{{ asset('public/assets/js/user/sidebar.min.js') }}?v={{ time() }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof toggleSidebarCategory === 'undefined') {
+                console.error('toggleSidebarCategory is undefined. Sidebar script might not have loaded correctly.');
+            } else {
+                console.log('toggleSidebarCategory is defined.');
+            }
+        });
+    </script>
     <script src="{{ asset('public/assets/js/user/main.min.js') }}"></script>
     <script src="{{ asset('public/frontend/assets/js/sweet-alert2.min.js') }}"></script>
     <script src="{{ asset('public/assets/plugin/waversurferjs/waversurfer.min.js') }}"></script>

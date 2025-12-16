@@ -12,7 +12,7 @@
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.3",
         "autoprefixer": "^10.4.16",
-        "axios": "^0.21.4",
+        "axios": "^1.13.2",
         "dotenv": "^10.0.0",
         "dotenv-expand": "^5.1.0",
         "jquery-ui": "^1.13.2",
@@ -27,6 +27,7 @@
     "dependencies": {
         "@tailwindcss/line-clamp": "^0.4.4",
         "chart.js": "^2.9.4",
+        "jsdom": "^27.2.0",
         "mix": "^0.0.1",
         "tw-elements": "^1.0.0-alpha13"
     }

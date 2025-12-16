@@ -51,7 +51,7 @@
 
                 </a>
             </div>
-            <img class="bottom-0 absolute right-0 3xl:w-[108px] 7xl:w-[137px] neg-transition-scale" src="{{ asset('public/assets/image/dashboard-robo.png') }}"
+            <img class="bottom-0 absolute right-0 3xl:w-[108px] 7xl:w-[137px]" src="{{ asset('public/assets/image/dashboard-robo.png') }}"
                 alt="{{ __('Image') }}">
         </div>
     </div>
@@ -183,7 +183,7 @@
                     </div>
                     <div class="flex items-center mr-2">
                         <a class="text-white text-16 cursor-pointer font-normal font-Figtree flex text-center items-center justify-center rounded-full h-[60px] w-[60px]" href="{{ route('user.profile') }}">
-                            <img class="rounded-full cursor-pointer bg-white h-[60px] w-[60px] neg-transition-scale"src="{{ Auth::user()->fileUrl() }}" alt="Avatar of User">
+                            <img class="rounded-full cursor-pointer bg-white h-[60px] w-[60px]"src="{{ Auth::user()->fileUrl() }}" alt="Avatar of User">
                         </a>
                     </div>
                 </div>
@@ -209,9 +209,9 @@
             <a class="bg-white dark:bg-color-3A md:p-6 p-4 rounded-xl" href="{{ route('user.template', ['slug' => $useCase->slug]) }}">
                 <img class="w-8 h-8 rounded-full" src="{{ asset($useCase->fileUrl()) }}" alt="{{ __('Image') }}">
                 <p class="mt-[18px] text-color-14 dark:text-white text-[15px] leading-[22px] font-Figtree font-medium">
-                    {{ $useCase->name }}</p>
+                    {{ __($useCase->name) }}</p>
                 <p class="font-[300px] pt-2 text-color-14 dark:text-white text-[13px] leading-5 font-Figtree break-all">
-                    {{ $useCase->description }}
+                    {{ __($useCase->description) }}
                 </p>
             </a>
             @endforeach
@@ -304,7 +304,7 @@
                     {{ __('Last created images') }}</p>
                 <div class="mt-4 bg-white dark:bg-color-3A 9xl:p-6 p-5 py-5 last-border-remove rounded-xl">
                     <div class="flex sm:flex-row flex-col gap-5">
-                        <img class="rounded-xl md:w-[226px] w-full h-[226px] border border-color-DF dark:border-color-3A neg-transition-scale"
+                        <img class="rounded-xl md:w-[226px] w-full h-[226px] border border-color-DF dark:border-color-3A"
                             src="{{ $images[0]->imageUrl() }}" alt="{{ __('Image') }}">
                         <div>
                             <p class="text-color-89 text-[14px] font-medium leading-[22px] font-Figtree">
@@ -361,7 +361,7 @@
                         @foreach($images as $key => $image)
                             @if($key != 0)
                                 <div class="relative download-image-container">
-                                    <img class="5xl:w-[158px] m-auto sm:h-[158px] sm:w-[149px] w-[102px] h-[102px] cursor-pointer rounded-xl border border-color-DF dark:border-color-3A neg-transition-scale" src="{{ $image->imageUrl() }}" alt="{{ __('Image') }}">
+                                    <img class="5xl:w-[158px] m-auto sm:h-[158px] sm:w-[149px] w-[102px] h-[102px] cursor-pointer rounded-xl border border-color-DF dark:border-color-3A" src="{{ $image->imageUrl() }}" alt="{{ __('Image') }}">
                                     <div class="image-hover-overlay rounded-xl"></div>
                                     <div class="flex download-button absolute top-0 bottom-0 sm:left-[25%] sm:right-[25%] left-0 right-0 justify-center items-center gap-3">
                                         <a href="{{ route("user.gallery.show") . "?slug={$image->slug}" }}" class="relative bg-white dark:bg-color-3A tooltips w-9 h-9 flex items-center m-auto justify-center rounded-lg text-color-14 dark:text-white">

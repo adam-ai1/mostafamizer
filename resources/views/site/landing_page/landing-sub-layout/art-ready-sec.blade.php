@@ -1,8 +1,8 @@
 <div class="relative background-one">
-    <img class="absolute w-full h-full sm:block hidden neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/background-one.png') }}"
+    <img class="absolute w-full h-full sm:block hidden" src="{{ asset('Modules/OpenAI/Resources/assets/image/background-one.png') }}"
         alt="{{ __('Image') }}">
     <span>
-        <img class="absolute w-full sm:hidden top-[490px] neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/mobile-bg-1.svg') }}" alt="">
+        <img class="absolute w-full sm:hidden top-[490px]" src="{{ asset('Modules/OpenAI/Resources/assets/image/mobile-bg-1.svg') }}" alt="">
     </span>
     <div class="9xl:px-[310px] 8xl:px-40 lg:px-20 md:px-10 px-5 relative overflow-hidden">
         <div class="grid lg:grid-cols-2 lg:gap-6 gap-5">
@@ -10,7 +10,7 @@
                 <div class="rounded-[30px] bg-color-76 w-full 6xl:px-10 px-[26px] 6xl:pt-8 py-[26px] lg:pb-0">
                     <p class="font-RedHat text-white 6xl:text-36 text-28 font-bold">{{ __('Let AI do all the magic for you')}}</p>
                     <div class="flex 2xl:flex-row md:flex-col-reverse gap-[26px] 6xl:mt-6 mt-5 items-center 2xl:items-start">
-                        <img class="w-[215px] h-[292px] hidden lg:block bottom-0 neg-transition-scale"
+                        <img class="w-[215px] h-[292px] hidden lg:block bottom-0"
                             src="{{ asset('Modules/OpenAI/Resources/assets/image/robot-hand.png') }}"
                             alt="{{ __('Image') }}">
                         <div class="6xl:mt-1 mt-0">
@@ -26,7 +26,7 @@
             </div>
             <div class="border border-color-89 bg-white dark:bg-color-14 dark:border-color-47 rounded-[30px] 6xl:pl-10 px-[26px] 6xl:pr-9 6xl:pt-8 py-[26px] 6xl:pb-[48px] w-full">
                 <p class="xs:text-36 text-28 break-words text-color-14 dark:text-white font-bold font-RedHat lang-text-h1">
-                    {!! str_replace(__('Only'), '<span class="text-color-E2 pl-1">' .  __('Only') . '</span>' ,__('The Only Artificial Intelligence Service you ever need')) !!}
+                    {!! __('The Only Artificial Intelligence Service you ever need') !!}
                 </p>
                 <p class="mt-7 text-color-14 dark:text-white text-18 leading-[30px] font-normal font-Figtree">{{ __('Intuitive interface and minimal learning curve makes :x the ideal choice for anyone who needs to write content quickly without sacrificing quality and reach your milestones 10X faster!', ['x' => preference('company_name')])}}</p>
                 <div class="flex md:flex-row lg:flex-col 4xl:flex-row flex-col gap-[15px] 6xl:mt-7 mt-5">
@@ -42,7 +42,7 @@
                             </span>
                         </a>
                     </div>
-                    <img class="h-[270px] w-[301px] px-[15px] md:px-0 object-contain mx-auto neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/robot.png') }}" alt="">
+                    <img class="h-[270px] w-[301px] px-[15px] md:px-0 object-contain mx-auto" src="{{ asset('Modules/OpenAI/Resources/assets/image/robot.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -61,8 +61,8 @@
                     <p class="6xl:mt-6 mt-5 6xl:px-10 px-5 text-color-14 dark:text-white text-lg leading-[30px] font-normal font-Figtree">
                         {{ __('Our Use Cases help you quickly and easily create high-efficiency, human-friendly content for applications and social media, scripts for videos, boost SEO, and generate digital art – all at the fraction of the cost and in one place!') }}  </p>
                     <div class="mt-8 relative">
-                        <img class="w-full h-full max-w-none dark:hidden 6xl:w-full 3xl:w-[553px] neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/image-use-cases.png') }}" alt="">
-                        <img class="w-full h-full max-w-none dark:block hidden 6xl:w-full 3xl:w-[553px] neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/dark-image-use-cases.png') }}" alt="">
+                        <img class="w-full h-full max-w-none dark:hidden 6xl:w-full 3xl:w-[553px]" src="{{ asset('Modules/OpenAI/Resources/assets/image/image-use-cases.png') }}" alt="">
+                        <img class="w-full h-full max-w-none dark:block hidden 6xl:w-full 3xl:w-[553px]" src="{{ asset('Modules/OpenAI/Resources/assets/image/dark-image-use-cases.png') }}" alt="">
                         <span class="absolute top-0 9xl:-right-[178px] 8xl:-right-[187px] 7xl:-right-[200px] 6xl:-right-[176px] 3xl:-right-[116px] 2xl:-right-[155px] xl:-right-[137px] lg:-right-[118px] z-10 -right-28 max-w-none hidden xs:block sm:hidden lg:block template-floating-img">
                             <img class="9xl:w-full 8xl:w-[315px] 7xl:w-[336px] 6xl:w-[297px] 3xl:w-[259px] 2xl:w-[261px] xl:w-[230px] lg:w-[198px] md:h-full h-[185px] dark:hidden" src="{{ asset('Modules/OpenAI/Resources/assets/image/image-floating.png') }}" alt="">
                             <img class="9xl:w-full 8xl:w-[315px] 7xl:w-[336px] 6xl:w-[297px] 3xl:w-[259px] 2xl:w-[261px] xl:w-[230px] lg:w-[198px] md:h-full h-[185px] dark:block hidden" src="{{ asset('Modules/OpenAI/Resources/assets/image/dark-image-floating.png') }}" alt="">

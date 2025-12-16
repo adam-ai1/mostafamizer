@@ -29,8 +29,21 @@
 
 @foreach (['success', 'danger', 'fail', 'warning', 'info'] as $msg)
     @if ($message = Session::get($msg))
+
+        @php
+            $bgColors = [
+                'success' => 'bg-[#763CD4]',
+                'danger' => 'bg-red-600',
+                'fail' => 'bg-red-600',
+                'warning' => 'bg-amber-500',
+                'info' => 'bg-blue-500'
+            ];
+
+            $bgColor = $bgColors[$msg == 'fail' ? 'danger' : $msg] ?? 'bg-purple-600';
+        @endphp
         <div class="alert-reset inline-block flash-message">
-            <div class="alert-{{ $msg == 'fail' ? 'danger' : $msg }} font-Figtree text-white text-16 font-medium p-5 bg-[#763CD4] rounded-xl validation-modal-box-shadow w-max flex gap-12">
+            <div class="alert-{{ $msg == 'fail' ? 'danger' : $msg }} font-Figtree text-white text-16 font-medium p-5 !{{$bgColor}} rounded-xl validation-modal-box-shadow w-max flex gap-12">
+
 
                 <div class="flex gap-3 items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="11" viewBox="0 0 15 11"

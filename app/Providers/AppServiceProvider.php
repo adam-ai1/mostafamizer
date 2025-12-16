@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\Guard;
 use App\Lib\AiProviderManager;
+use App\Lib\ChannelManager;
 use App\Models\Model;
 use Schema, View;
 use App\Models\{

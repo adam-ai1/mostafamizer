@@ -1,0 +1,14 @@
+{
+    "name": "Grok",
+    "alias": "grok",
+    "description": "Grok is an AI assistant by xAI, integrated with X (formerly Twitter), delivering intelligent, real-time responses and insights to support users with accurate, efficient, and engaging conversational solutions.",
+    "version": "1.0",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Grok\\Providers\\GrokServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

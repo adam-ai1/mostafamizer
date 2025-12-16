@@ -5,7 +5,7 @@
         <div class="card-content black-text">
             <div class="center-align">
                 <p class="card-title">{{ env('APP_NAME', '') }}</p>
-                <p><em>{{ env('ARTIFISM_VERSION', '1.0.0') }}</em></p>
+                <p><em>{{ env('VOXCRAFT_STUDIO_VERSION', '1.0.0') }}</em></p>
                 <hr>
                 <p class="card-title">{{ __("Welcome to :x installer", ['x' => env('APP_NAME', '')]) }}</p>
             </div>

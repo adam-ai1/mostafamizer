@@ -1,0 +1,14 @@
+{
+    "name": "MarketingBot",
+    "alias": "marketingbot",
+    "description": "Marketing Bot module providing automated marketing capabilities with support for Telegram and WhatsApp platforms, enabling businesses to engage customers through AI-powered chatbots and automated messaging campaigns.",
+    "version": "1.0.0",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\MarketingBot\\Providers\\MarketingBotServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

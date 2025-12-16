@@ -96,6 +96,7 @@ class TeamMemberMeta extends Model
                 ['field' => 'chatbot', 'value' => 1],
                 ['field' => 'voice_clone', 'value' => 1],
                 ['field' => 'video', 'value' => 1],
+                ['field' => 'marketing_bot', 'value' => 1],
             ],
         ];
         

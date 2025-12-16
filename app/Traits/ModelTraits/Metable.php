@@ -14,6 +14,17 @@ trait Metable
     public static $_columnNames;
 
     /**
+     * Tracks whether meta data has been loaded to avoid dynamic props.
+     * Nullable to survive old serialized instances where this was untyped.
+     */
+    protected ?bool $metaLoaded = false;
+
+    /**
+     * Cached meta data collection for the model instance.
+     */
+    protected ?Collection $metaData = null;
+
+    /**
      * whereMeta scope for easier join
      * -------------------------
      */
@@ -294,7 +305,7 @@ trait Metable
      */
     protected function getMetaData()
     {
-        if (!isset($this->metaLoaded)) {
+        if (! $this->metaLoaded) {
 
             if ($this->exists) {
                 $objects = $this->metas
@@ -303,13 +314,19 @@ trait Metable
                 if (!is_null($objects)) {
                     $this->metaLoaded = true;
 
-                    return $this->metaData = $objects->keyBy('key');
+                    $this->metaData = $objects->keyBy('key');
+
+                    return $this->metaData;
                 }
             }
             $this->metaLoaded = true;
 
-            return $this->metaData = new Collection();
+            $this->metaData = new Collection();
+
+            return $this->metaData;
         }
+
+        return $this->metaData ?? new Collection();
     }
 
     /**

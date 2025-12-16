@@ -8,7 +8,7 @@ return [
      *
      */
     'welcome' => [
-        'name' => 'Artifism',
+        'name' => 'voxcraft Studio',
         'version' => 'V 1.0',
         'title' => 'Welcome to the Installer !',
         'message' => 'Easy installation and setup wizard',

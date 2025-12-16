@@ -13,7 +13,7 @@
                         </svg>
                     </div>
 
-                    <a href="{{ route('user.dashboard') }}" class="b-brand">
+                    <a href="{{ route('frontend.index') }}" class="b-brand">
                         @php
                             $logo = App\Models\Preference::getLogo('company_logo');
                         @endphp
@@ -97,8 +97,18 @@
                                     </div>
                                     @endforeach
                                     @endif 
-                                    <div class="pt-2 pb-4 border-t border-color-DF dark:border-color-89">
-                                        <a href="{{ route('users.logout') }}" class="flex justify-start items-center gap-1.5 break-words text-14 font-medium text-color-14 dark:text-white font-Figtree px-[18px]">
+                                    <div class="pt-2 pb-2 border-t border-color-DF dark:border-color-89">
+                                        <a href="{{ route('user.profile') }}" class="flex justify-start items-center gap-1.5 break-words text-14 font-medium text-color-14 dark:text-white font-Figtree px-[18px] hover:bg-color-F6 dark:hover:bg-[#3A3A39]">
+                                            <p class="wrap-anywhere">{{ __('Profile') }}</p>
+                                        </a>
+                                    </div>
+                                    <div class="pb-2">
+                                        <a href="{{ route('user.package') }}" class="flex justify-start items-center gap-1.5 break-words text-14 font-medium text-color-14 dark:text-white font-Figtree px-[18px] hover:bg-color-F6 dark:hover:bg-[#3A3A39]">
+                                            <p class="wrap-anywhere">{{ __('Subscription') }}</p>
+                                        </a>
+                                    </div>
+                                    <div class="pb-4">
+                                        <a href="{{ route('users.logout') }}" class="flex justify-start items-center gap-1.5 break-words text-14 font-medium text-color-14 dark:text-white font-Figtree px-[18px] hover:bg-color-F6 dark:hover:bg-[#3A3A39]">
                                             <p class="wrap-anywhere">{{ __('Logout') }}</p>
                                         </a>
                                     </div>

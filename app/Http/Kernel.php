@@ -76,7 +76,8 @@ class Kernel extends HttpKernel
         'forceJson' => \App\Http\Middleware\ForceJsonResponse::class,
         'teamAccess' => \App\Http\Middleware\TeamMemberAccess::class,
         'userPermission' => \App\Http\Middleware\UserPermission::class,
-        'affiliate' => \Modules\Affiliate\Http\Middleware\Affiliate::class
+        'affiliate' => \Modules\Affiliate\Http\Middleware\Affiliate::class,
+        'channelEnabled' => \App\Http\Middleware\CheckChannelEnabled::class
 
     ];
 }

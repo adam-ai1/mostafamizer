@@ -2,6 +2,7 @@
 
 use App\Models\{File, RoleUser, PermissionRole, Team, TeamMemberMeta};
 use Nwidart\Modules\Facades\Module;
+use Modules\MarketingBot\Services\CampaignService;
 
 if (! function_exists('getJsonDataFromFile')) {
     /**
@@ -518,7 +519,7 @@ if (! function_exists('wrapIt')) {
         }
 
         // Get extra length for collapsed navigation bar
-        $extra = $_COOKIE['collapsedNavbar'] == 'true' ? floor((40 / $options['columns']) + .5) : 0;
+        $extra = isset($_COOKIE['collapsedNavbar']) && $_COOKIE['collapsedNavbar'] == 'true' ? (int) floor((40 / $options['columns']) + .5) : 0;
 
         if (! empty($options['trim'])) {
             $options['trimLength'] += ($extra * 2);
@@ -527,8 +528,8 @@ if (! function_exists('wrapIt')) {
             }
         }
 
-        // Get the length
-        $length += floor((($width - $options['minWidth']) / 10) + .5) + $extra;
+        // Get the length - cast to int to avoid PHP 8.1 deprecation warning
+        $length = (int) ($length + floor((($width - $options['minWidth']) / 10) + .5) + $extra);
 
         // wrap the string
         return wordwrap($str, $length, $options['break'], $options['cut']);
@@ -1171,11 +1172,37 @@ if (! function_exists('hasAccess')) {
      */
     function hasAccess(string $feature)
     {
-        $isAdmin = auth()->user()->role()->type == 'admin';
-        if ($isAdmin) return true;
+        if (!auth()->check()) {
+            return false;
+        }
+
+        $userId = (new \Modules\OpenAI\Services\ContentService())->getCurrentMemberUserId('meta', null, ['user_id' => auth()->id()]);
         
-        $permissions = json_decode(preference('user_permission')) ?? [];
-        return ($permissions->{"hide_$feature"} ?? 0) != 1;
+        if (is_array($userId)) {
+            return false;
+        }
+
+        $userId = is_int($userId) ? $userId : auth()->id();
+
+        $subscription = subscription('isSubscribed', $userId);
+
+        // Check subscription access
+        $hasSubscriptionAccess = (bool) subscription('getUserSubscriptionByFeature', $feature);
+
+        // Check credit access using latest SubscriptionDetails
+        $hasCreditAccess = \Modules\Subscription\Entities\SubscriptionDetails::where('user_id', $userId)
+            ->where('billing_cycle', null)
+            ->whereHas('credit')
+            ->exists();
+
+        // If user has both subscription and credit access, use priority
+        if ($subscription && $hasCreditAccess) {
+            $priority = preference('credit_balance_priority', 'subscription');
+            return $priority === 'subscription' ? $hasSubscriptionAccess : $hasCreditAccess;
+        }
+        
+        // If user has either subscription or credit access, grant access
+        return $hasSubscriptionAccess || $hasCreditAccess;
     }
 }
 
@@ -1299,6 +1326,113 @@ if (!function_exists('convertToHtml')) {
     }
 }
 
+if (!function_exists('formatBotReply')) {
+    /**
+     * Format bot reply with markdown support and code blocks
+     */
+    function formatBotReply(string $text): string
+    {
+        // Store code blocks temporarily
+        $codeBlocks = [];
+        $counter = 0;
+        
+        // First, handle code blocks (```language ... ```) and replace with placeholders
+        $text = preg_replace_callback(
+            '/```(\w+)?\n?(.*?)```/s',
+            function ($matches) use (&$codeBlocks, &$counter) {
+                $language = $matches[1] ?? '';
+                $code = htmlspecialchars(trim($matches[2]), ENT_QUOTES, 'UTF-8');
+                $placeholder = '___CODE_BLOCK_' . $counter . '___';
+                $codeBlocks[$counter] = '<pre class="bg-gray-100 dark:bg-gray-800 p-3 rounded overflow-x-auto my-2 text-xs"><code' . 
+                       ($language ? ' class="language-' . htmlspecialchars($language, ENT_QUOTES, 'UTF-8') . '"' : '') . 
+                       '>' . $code . '</code></pre>';
+                $counter++;
+                return $placeholder;
+            },
+            $text
+        );
+        
+        // Handle inline code (`code`) - but not inside code blocks
+        $text = preg_replace('/`([^`\n]+)`/', '<code class="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-xs">$1</code>', $text);
+        
+        // Convert headings (must be at start of line)
+        $text = preg_replace('/^###\s+(.+)$/m', '<h3 class="text-sm font-bold mb-2 mt-2">$1</h3>', $text);
+        $text = preg_replace('/^##\s+(.+)$/m', '<h2 class="text-base font-bold mb-2 mt-2">$1</h2>', $text);
+        $text = preg_replace('/^#\s+(.+)$/m', '<h1 class="text-base font-bold mb-2 mt-2">$1</h1>', $text);
+        
+        // Convert numbered lists (1. item) - must be at start of line
+        $lines = explode("\n", $text);
+        $inList = false;
+        $listItems = [];
+        $result = [];
+        
+        foreach ($lines as $line) {
+            if (preg_match('/^(\d+)\.\s+(.+)$/', $line, $matches)) {
+                if (!$inList) {
+                    $inList = true;
+                    $listItems = [];
+                }
+                $listItems[] = '<li>' . trim($matches[2]) . '</li>';
+            } else {
+                if ($inList && !empty($listItems)) {
+                    $result[] = '<ol class="list-decimal ml-4 my-2 space-y-1">' . implode('', $listItems) . '</ol>';
+                    $listItems = [];
+                    $inList = false;
+                }
+                $result[] = $line;
+            }
+        }
+        
+        if ($inList && !empty($listItems)) {
+            $result[] = '<ol class="list-decimal ml-4 my-2 space-y-1">' . implode('', $listItems) . '</ol>';
+        }
+        
+        $text = implode("\n", $result);
+        
+        // Convert bullet lists (* item) - must be at start of line
+        $lines = explode("\n", $text);
+        $inList = false;
+        $listItems = [];
+        $result = [];
+        
+        foreach ($lines as $line) {
+            if (preg_match('/^\*\s+(.+)$/', $line, $matches)) {
+                if (!$inList) {
+                    $inList = true;
+                    $listItems = [];
+                }
+                $listItems[] = '<li>' . trim($matches[1]) . '</li>';
+            } else {
+                if ($inList && !empty($listItems)) {
+                    $result[] = '<ul class="list-disc ml-4 my-2 space-y-1">' . implode('', $listItems) . '</ul>';
+                    $listItems = [];
+                    $inList = false;
+                }
+                $result[] = $line;
+            }
+        }
+        
+        if ($inList && !empty($listItems)) {
+            $result[] = '<ul class="list-disc ml-4 my-2 space-y-1">' . implode('', $listItems) . '</ul>';
+        }
+        
+        $text = implode("\n", $result);
+        
+        // Convert bold (**text**)
+        $text = preg_replace('/\*\*(.+?)\*\*/', '<strong>$1</strong>', $text);
+        
+        // Convert line breaks
+        $text = nl2br($text);
+        
+        // Restore code blocks
+        foreach ($codeBlocks as $index => $codeBlock) {
+            $text = str_replace('___CODE_BLOCK_' . $index . '___', $codeBlock, $text);
+        }
+        
+        return $text;
+    }
+}
+
 
 if (! function_exists('manageProviderValues')) {
 
@@ -1394,5 +1528,41 @@ if (! function_exists('generateUniqueId')) {
     function generateUniqueId(): string
     {
         return mt_rand(100000, 999999) . substr(microtime(true) * 10000, -6);
+    }
+
+}
+
+if (! function_exists('getCountryName')) {
+    /**
+     * Convert country code to country name using database
+     */
+    function getCountryName(?string $countryCode): string
+    {
+        if (!$countryCode) {
+            return '';
+        }
+
+        // Query the countries table for the country name
+        $country = \App\Models\Country::where('code', strtoupper($countryCode))->first();
+
+        return $country ? $country->name : $countryCode;
+    }
+}
+
+/**
+ * Get marketing bot channel preferences
+ *
+ * @return array
+ */
+if (!function_exists('getMarketingBotChannelPreferences')) {
+    /**
+     * Get marketing bot channel preferences
+     *
+     * @return array
+     */
+    function getMarketingBotChannelPreferences(): array
+    {
+        $campaignService = new CampaignService();
+        return $campaignService->getChannelPreferences();
     }
 }

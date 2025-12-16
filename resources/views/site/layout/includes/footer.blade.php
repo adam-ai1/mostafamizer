@@ -24,10 +24,10 @@
                 <div class="w-full sm:w-1/3 md:w-1/5 order-{{ isset($footer['main']['about_us']['sort']) ? $footer['main']['about_us']['sort'] : 1 }}">
                     @if($footerLogoLight->image && $footerLogoDark->image)
                     <a href="#">
-                        <img class="w-[157px] h-[42px] dark:hidden neg-transition-scale object-contain"
+                        <img class="w-[157px] h-[42px] dark:hidden object-contain"
                             src="{{ $footerLogoLight->fileUrl()  }}"
                             alt="{{ __('Image') }}">
-                            <img class="w-[157px] h-[42px] dark:block hidden neg-transition-scale object-contain"
+                            <img class="w-[157px] h-[42px] dark:block hidden object-contain"
                             src="{{ $footerLogoDark->fileUrl() }}"
                             alt="{{ __('Image') }}">
                     </a>
@@ -52,7 +52,7 @@
                             <div class="w-[45%] sm:w-1/3 md:w-1/5 grid lg:justify-center justify-start order-{{ $value['sort'] }}">
                                 <ul class="gap-2.5 flex flex-col break-words lg:mt-5 mt-4 pb-3">
                                     <li class="font-bold mb-1.5 text-18 font-RedHat text-color-14 dark:text-white break-worda" style="color: {{ isset($footer['main']['text_color']) ? $footer['main']['text_color'] : '' }};">
-                                        {!! $value['title'] !!}
+                                        {!! __($value['title']) !!}
                                     </li>
                                     @foreach ($value['data'] ?? [] as $widget)
                                         <li class="text-14 text-color-14 dark:text-white font-normal font-Figtree cursor-pointer break-words" style="color: {{ isset($footer['main']['text_color']) ? $footer['main']['text_color'] : '' }};">
@@ -60,7 +60,7 @@
                                                 $siteUrl = URL::to('/');
                                             @endphp
                                             <a href="{{ $widget['link'] }}" class="inline-block">
-                                                {!! $widget['label']  !!} 
+                                                {!! __($widget['label'])  !!} 
                                                 @if( !stristr($widget['link'], $siteUrl))
                                                 &nbsp
                                                 <svg class="inline-block" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

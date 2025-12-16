@@ -12,17 +12,17 @@
         <div class="9xl:px-[310px] 8xl:px-40 lg:px-20 md:px-10 px-5 pb-16">
             @foreach($useCaseCategories as $useCaseCategory)
                 @if(count($useCaseCategory->useCases) != 0)
-                    <p class="text-24 text-color-14 dark:text-white font-bold mt-[52px] font-RedHat">{{ $useCaseCategory->name }}</p>
+                    <p class="text-24 text-color-14 dark:text-white font-bold mt-[52px] font-RedHat">{{ __($useCaseCategory->name) }}</p>
                     <div class="mt-6 grid 9xl:grid-cols-4 5xl:grid-cols-4 4xl:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-4 xl:gap-[23px] pb-8">
                         @foreach($useCaseCategory->useCases as $category)
                         <a href="{{ route('user.template', $category->slug) }}" class="bg-white dark:bg-color-14 border-dark border-design-2 cursor-pointer rounded-xl border border-color-DF dark:border-[#474746]">
                             <div class="relative">
                                 <div class="p-4 xl:p-[30px] xl:pb-6">
-                                    <img class="rounded-full w-12 h-12 neg-transition-scale"
+                                    <img class="rounded-full w-12 h-12"
                                     src="{{ $category->fileUrl() }}"
                                     alt="{{ __('Image') }}">
-                                    <p class="text-color-14 dark:text-white font-semibold text-18 mt-7 break-words line-clamp-double font-Figtree">{{trimWords ($category->name,65) }}</p>
-                                    <p class="text-13 xl:text-14 text-color-14 dark:text-color-DF font-light mt-2.5 break-words font-Figtree">{{trimWords ($category->description,65) }}</p>
+                                    <p class="text-color-14 dark:text-white font-semibold text-18 mt-7 break-words line-clamp-double font-Figtree">{{trimWords (__($category->name),65) }}</p>
+                                    <p class="text-13 xl:text-14 text-color-14 dark:text-color-DF font-light mt-2.5 break-words font-Figtree">{{trimWords (__($category->description),65) }}</p>
                                 </div>
                             </div>
                         </a>
@@ -41,14 +41,14 @@
                             <path d="M13.707 6.70597C14.0977 6.3155 14.0977 5.68137 13.707 5.2909L8.70674 0.292854C8.31609 -0.0976181 7.68168 -0.0976181 7.29103 0.292854C6.90039 0.683327 6.90039 1.31745 7.29103 1.70793L10.5881 5.00039H1.00006C0.4469 5.00039 0 5.44709 0 6C0 6.55291 0.4469 6.99961 1.00006 6.99961H10.585L7.29416 10.2921C6.90351 10.6825 6.90351 11.3167 7.29416 11.7071C7.6848 12.0976 8.31921 12.0976 8.70986 11.7071L13.7101 6.7091L13.707 6.70597Z" fill="#E22861"></path>
                         </svg>
                     </a>
-                    <img class="absolute top-[-30px] left-[88px] hidden xl:block gmail-rtl neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/google.png') }}" alt="{{ __('Image') }}">
-                    <img class="absolute top-0 right-[88px] hidden xl:block ink-rtl neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/ink.png') }}" alt="{{ __('Image') }}">
+                    <img class="absolute top-[-30px] left-[88px] hidden xl:block gmail-rtl" src="{{ asset('Modules/OpenAI/Resources/assets/image/google.png') }}" alt="{{ __('Image') }}">
+                    <img class="absolute top-0 right-[88px] hidden xl:block ink-rtl" src="{{ asset('Modules/OpenAI/Resources/assets/image/ink.png') }}" alt="{{ __('Image') }}">
                 </div>
                 <div class="relative flex justify-center w-max mx-auto">
-                    <img class="mx-auto 2xl:w-full xl:w-[700px] lg:w-[580px] bottom-0 hidden lg:block z-10 neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/content.png') }}">
-                    <img class="hidden lg:block absolute -top-[25px] left-40 neg-transition-scale mike-rtl" src="{{ asset('Modules/OpenAI/Resources/assets/image/mike.png') }}">
-                    <img class="hidden lg:block absolute bottom-10 z-[50] -left-5 you-tube-rtl neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/youtube.png') }}">
-                    <img class="hidden xl:block absolute bottom-5 xl:bottom-[53px] z-[50] -right-[154px] robo-target neg-transition-scale" src="{{ asset('Modules/OpenAI/Resources/assets/image/img-robo-target.png') }}">
+                    <img class="mx-auto 2xl:w-full xl:w-[700px] lg:w-[580px] bottom-0 hidden lg:block z-10" src="{{ asset('Modules/OpenAI/Resources/assets/image/content.png') }}">
+                    <img class="hidden lg:block absolute -top-[25px] left-40 mike-rtl" src="{{ asset('Modules/OpenAI/Resources/assets/image/mike.png') }}">
+                    <img class="hidden lg:block absolute bottom-10 z-[50] -left-5 you-tube-rtl" src="{{ asset('Modules/OpenAI/Resources/assets/image/youtube.png') }}">
+                    <img class="hidden xl:block absolute bottom-5 xl:bottom-[53px] z-[50] -right-[154px] robo-target" src="{{ asset('Modules/OpenAI/Resources/assets/image/img-robo-target.png') }}">
                 </div>
             </div>
         </div>

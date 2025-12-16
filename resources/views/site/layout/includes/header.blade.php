@@ -5,7 +5,7 @@
         style="background: {{ $header['main']['bg_color'] }}">
         <div class="flex justify-between">
             @if (isset($header['main']['show_logo']) && $header['main']['show_logo'] == 1 && $headerLogoLight->image && $headerLogoDark->image)
-                <div class="neg-transition-scale">
+                <div class="no-flip">
                     <a href="{{ route('frontend.index') }}">
                         <img class="w-[104px] h-7 md:w-[157px] md:h-[42px] hidden dark:block object-contain"
                             src="{{ $headerLogoDark->fileUrl() }}" alt="{{ __('Image') }}">
@@ -55,7 +55,7 @@
                             @endphp
 
                             <li class="px-3 py-1 rounded-md {{ $activeUrl == $currentUrl ? 'bg-[#E22861]' : '' }}" data-url ="{{ $activeUrl }}">
-                                <a class=" text-16 font-normal font-Figtree bg-color-FF9 {{ !empty($menu->class) ? $menu->class : '' }}" href="{{ $url }}">{{ ucwords($menu->label) }}</a>
+                                <a class=" text-16 font-normal font-Figtree bg-color-FF9 {{ !empty($menu->class) ? $menu->class : '' }}" href="{{ $url }}">{{ ucwords(__($menu->label)) }}</a>
                             </li>
                         @endforeach
                         @includeIf('affiliate::layouts.includes.be_affiliate')
@@ -81,8 +81,8 @@
             <div id="dropdowns-header" class="md:relative absolute top-0 right-[50px] md:right-1 flex justify-end items-center lg:gap-5 gap-3">
                 @if (isset($header['main']['show_switch_bar']) && $header['main']['show_switch_bar'] == 1)
                     <div class="mt-3 md:mt-0 cursor-pointer" id="switch">
-                        <img src="{{ asset('Modules/OpenAI/Resources/assets/image/moon.png') }}" class="neg-transition-scale moon w-6 {{ \Cookie::get('theme_preference') == 'dark' ? 'hidden' : '' }}" alt="{{ __('Dark') }}">
-                        <img src="{{ asset('Modules/OpenAI/Resources/assets/image/sun.png') }}" class="neg-transition-scale sun w-6 {{ \Cookie::get('theme_preference') == 'dark' ? '' : 'hidden' }}" alt="{{ __('Light') }}">
+                        <img src="{{ asset('Modules/OpenAI/Resources/assets/image/moon.png') }}" class="moon w-6 {{ \Cookie::get('theme_preference') == 'dark' ? 'hidden' : '' }}" alt="{{ __('Dark') }}">
+                        <img src="{{ asset('Modules/OpenAI/Resources/assets/image/sun.png') }}" class="sun w-6 {{ \Cookie::get('theme_preference') == 'dark' ? '' : 'hidden' }}" alt="{{ __('Light') }}">
                     </div>
                 @endif
                 <div>
@@ -93,7 +93,7 @@
                     @if($languages->isNotEmpty())
                         <div class="cursor-pointer mt-3 md:mt-0 relative">
                             <a class="text-white text-16 cursor-pointer font-normal language-dropdown-click font-Figtree flex text-center gap-2 items-center justify-center">
-                                <img class="rounded-full cursor-pointer h-[18px] w-[18px] bg-white neg-transition-scale" src="{{ url("public/datta-able/fonts/flag/flags/4x3/" . getSVGFlag($flag) . ".svg") }}"
+                                <img class="rounded-full cursor-pointer h-[18px] w-[18px] bg-white" src="{{ url("public/datta-able/fonts/flag/flags/4x3/" . getSVGFlag($flag) . ".svg") }}"
                                 alt="{{ __('Image') }}">
                                 <p> {{ ucFirst($flag) }} </p>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
@@ -105,7 +105,7 @@
                                 <div>
                                     @foreach($languages as $language)
                                         <a data-short-name="{{ $language->short_name }}" class="lang-change flex justify-start items-center gap-1.5 text-14 font-medium text-color-14 dark:text-white font-Figtree px-[15px] py-2 hover:bg-color-F6 dark:hover:bg-[#3A3A39]">
-                                            <img class="rounded-full cursor-pointer h-[18px] w-[18px] bg-white neg-transition-scale" src="{{ url("public/datta-able/fonts/flag/flags/4x3/" . getSVGFlag($language->short_name) . ".svg") }}"
+                                            <img class="rounded-full cursor-pointer h-[18px] w-[18px] bg-white" src="{{ url("public/datta-able/fonts/flag/flags/4x3/" . getSVGFlag($language->short_name) . ".svg") }}"
                                             alt="{{ __('Image') }}">
                                             <p>{{ $language->name }}</p>
                                         </a>
@@ -120,7 +120,7 @@
                         <div class="relative">
                             <a class="header-dropdown-click flex flex-col justify-center items-center">
                                 <div class="text-white text-16 cursor-pointer font-normal font-Figtree flex text-center items-center justify-center rounded-full h-10 w-10 md:h-11 md:w-11 sign-in-button sign-in">
-                                <img class="rounded-full h-9 w-9 md:h-10 md:w-10 cursor-pointer bg-white neg-transition-scale" src="{{ Auth::user()->fileUrl() }}"
+                                <img class="rounded-full h-9 w-9 md:h-10 md:w-10 cursor-pointer bg-white" src="{{ Auth::user()->fileUrl() }}"
                                 alt="{{ __('Profile Image') }}">
                                 </div>
                                 <svg class="hidden md:block" xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">

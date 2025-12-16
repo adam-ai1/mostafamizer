@@ -3,7 +3,7 @@
 @section('seo')
     <meta name="robots" content="index, follow">
     <meta name="title" content="{{ preference('company_name').' '.'Blog List' }}">
-    <meta name="keywords" content="{{ preference('company_name').' '. ', eCommerce, Arifism, '. preference('company_name') . 'Artifism Ai Content' }}">
+    <meta name="keywords" content="{{ preference('company_name').' '. ', eCommerce, voxcraft Studio, '. preference('company_name') . 'voxcraft Studio Ai Content' }}">
 @endsection
 @section('content')
     <!-- component -->

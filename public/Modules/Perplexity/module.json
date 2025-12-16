@@ -1,0 +1,13 @@
+{
+    "name": "Perplexity",
+    "alias": "perplexity",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Perplexity\\Providers\\PerplexityServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

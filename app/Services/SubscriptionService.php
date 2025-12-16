@@ -473,6 +473,9 @@ class SubscriptionService
             'payment_method' => null
         ]);
 
+        // Force load metaData before using getMeta (fixes lazy loading issue)
+        $user->metaData;
+
         foreach ($credit->features as $key => $value) {
             $oldValueLimit = intval($user->getMeta($key . '_limit'));
             $oldValueUsed = intval($user->getMeta($key . '_used'));

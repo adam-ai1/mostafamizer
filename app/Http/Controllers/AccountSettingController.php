@@ -15,6 +15,7 @@ use App\Models\{Preference};
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\DefaultPackageRequest;
 use Modules\Subscription\Services\CreditService;
+use Modules\Subscription\Services\PackageService;
 
 class AccountSettingController extends Controller
 {
@@ -84,12 +85,26 @@ class AccountSettingController extends Controller
      */
     public function defaultPackage()
     {
-        $data['defaultPackage'] = '';
         $data['listMenu'] = 'default_package';
+        $data['features'] = PackageService::features();
+
         $defaultPackage = CreditService::defaultPackage();
-        if (!empty($defaultPackage)) {
-            $data['defaultPackage'] = $defaultPackage;
+        
+        if (!$defaultPackage) {
+            // Create default structure using features (excluding image-resolution)
+            $defaultFeatures = [];
+            foreach ($data['features'] as $key => $feature) {
+                if (($feature['type'] ?? null) === 'number' 
+                    && (int)($feature['is_visible'] ?? 1) === 1 
+                    && $key !== 'image-resolution') {
+                    $defaultFeatures[$key] = $feature['value'] ?? '';
+                }
+            }
+            $defaultPackage = (object) ['name' => '', 'features' => $defaultFeatures];
         }
+        
+        $data['defaultPackage'] = $defaultPackage;
+        
         return view('admin.account_settings.default_package', $data);
     }
 

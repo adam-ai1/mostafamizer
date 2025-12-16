@@ -1,0 +1,194 @@
+<div class="materials-table">
+
+    <section class="rounded-xl bg-white dark:bg-color-3A border border-color-89/10 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+                <thead
+                    class="bg-color-DF dark:bg-color-47 text-color-14 dark:text-white"
+                >
+                    <tr>
+                        <th
+                            class="min-w-[260px] text-start font-semibold pl-3 pr-6 py-5 text-xs uppercase tracking-wider"
+                        >
+                            {{ __('Material') }}
+                        </th>
+                        <th
+                            class="text-start font-semibold px-6 py-5 text-xs uppercase tracking-wider"
+                        >
+                            {{ __('Type') }}
+                        </th>
+                        <th
+                            class="text-start font-semibold px-6 py-5 text-xs uppercase tracking-wider"
+                        >
+                            {{ __('Words') }}
+                        </th>
+                        <th
+                            class="min-w-[140px] text-start font-semibold px-6 py-5 text-xs uppercase tracking-wider"
+                        >
+                            {{ __('Last Trained') }}
+                        </th>
+                        <th
+                            class="min-w-[140px] text-start font-semibold px-6 py-5 text-xs uppercase tracking-wider"
+                        >
+                            {{ __('State') }}
+                        </th>
+                        <th
+                            class="text-center font-semibold px-6 py-5 text-xs uppercase tracking-wider"
+                        >
+                            {{ __('Actions') }}
+                        </th>
+                    </tr>
+                </thead>
+
+                <!-- Actual Table Content -->
+                <tbody id="materials-table-body"
+                    class="materials-table-content bg-white dark:bg-color-3A divide-y divide-light-secondary/10 dark:divide-dark-secondary/10">
+
+                    @forelse ($materials as $material)
+                        <tr id="material-row-{{ $material->id }}" class="materials-row-{{ $material->id }} border-t border-color-89/10 hover:bg-gradient-to-r hover:from-blue-50/50 hover:to-purple-50/50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20">
+                            
+                            <td
+                                class="pl-3 pr-6 py-5 text-color-14 dark:text-white text-base"
+                            >
+                                {{ $material->original_name }}
+                            </td>
+                            <td
+                                class="px-6 py-5 text-color-14 dark:text-white text-base"
+                            >
+                                {{ $material->type }}
+                            </td>
+                            <td
+                                class="px-6 py-5 text-color-14 dark:text-white text-base"
+                            >
+                                {{ number_format($material->words) }}
+                            </td>
+                            <td
+                                class="px-6 py-5 whitespace-nowrap text-color-14 dark:text-white text-base"
+                            >
+                                {{ $material->created_at->diffForHumans() }}
+                            </td>
+                            <td
+                                class="px-6 py-5 whitespace-nowrap text-base {{ strtolower($material->state) === 'trained' ? 'text-green-500' : 'text-red-500' }}"
+                            >
+                                {{ ucfirst($material->state) }}
+                            </td>
+                            <td class="px-6 py-5 text-center">
+                                <div class="relative">
+                                    <button class="table-dropdown-click">
+                                        <a href="javascript: void(0)" class="cursor-pointer border p-2 border-color-89 rounded-lg flex justify-end">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                                <path d="M10.6875 14.625C10.6875 15.557 9.93198 16.3125 9 16.3125C8.06802 16.3125 7.3125 15.557 7.3125 14.625C7.3125 13.693 8.06802 12.9375 9 12.9375C9.93198 12.9375 10.6875 13.693 10.6875 14.625ZM10.6875 9C10.6875 9.93198 9.93198 10.6875 9 10.6875C8.06802 10.6875 7.3125 9.93198 7.3125 9C7.3125 8.06802 8.06802 7.3125 9 7.3125C9.93198 7.3125 10.6875 8.06802 10.6875 9ZM10.6875 3.375C10.6875 4.30698 9.93198 5.0625 9 5.0625C8.06802 5.0625 7.3125 4.30698 7.3125 3.375C7.3125 2.44302 8.06802 1.6875 9 1.6875C9.93198 1.6875 10.6875 2.44302 10.6875 3.375Z" fill="#898989"></path>
+                                            </svg>
+                                        </a>
+                                    </button>
+                                    <div class="absolute right-0 mt-2 w-[201px] border border-color-89 dark:border-color-47 rounded-lg bg-white dark:bg-[#333332] z-50 table-drop-body dropdown-shadow" style="display: none;">
+                                        <div class="my-2">
+                                            <a 
+                                                onclick="train(this)" data-id="{{ $material->id }}" data-url="{{ route('user.marketing-bot.campaigns.trainMaterials', ['id' => $material->id]) }}"
+                                                href="javascript: void(0)" class="flex justify-start items-center gap-1.5 text-14 font-normal text-color-14 dark:text-white font-Figtree px-4 py-2 hover:bg-color-F6 dark:hover:bg-[#3A3A39] rounded-t-lg text-left">
+                                                <span class="w-4 h-4 train-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 3.31266L12.9407 5.78749L12.1823 6.16739C12.1743 6.17119 12.1663 6.17516 12.1585 6.17929L8 8.26232L3.84149 6.17929C3.83366 6.17516 3.82574 6.17119 3.81772 6.16738L3.05932 5.78749L8 3.31266ZM2.90909 7.13778L1.35177 6.35771C1.13618 6.24972 1 6.02897 1 5.78749C1 5.54602 1.13618 5.32527 1.35177 5.21728L7.48774 2.14372C7.49245 2.14136 7.49789 2.13858 7.50401 2.13545C7.56338 2.1051 7.68625 2.04229 7.82398 2.0164C7.94031 1.99453 8.05969 1.99453 8.17602 2.0164C8.31375 2.04229 8.43662 2.1051 8.49599 2.13545C8.50211 2.13858 8.50755 2.14136 8.51226 2.14372L14.6482 5.21728C14.8638 5.32527 15 5.54602 15 5.78749C15 6.02897 14.8638 6.24972 14.6482 6.35771L13.0909 7.13778V10.576C13.0909 10.5917 13.091 10.6078 13.091 10.6243C13.0917 10.8002 13.0925 11.0214 13.0213 11.2282C12.9598 11.4068 12.8594 11.5695 12.7274 11.7046C12.5747 11.8608 12.3768 11.959 12.2194 12.0371C12.2047 12.0444 12.1903 12.0516 12.1763 12.0586L8.73993 13.7799C8.72858 13.7855 8.71693 13.7914 8.70499 13.7975C8.57607 13.8625 8.4138 13.9445 8.23468 13.9781C8.07958 14.0073 7.92042 14.0073 7.76531 13.9781C7.5862 13.9445 7.42393 13.8625 7.29501 13.7975C7.28307 13.7914 7.27142 13.7855 7.26007 13.7799L3.8237 12.0586C3.80973 12.0516 3.79532 12.0444 3.78056 12.0371C3.62316 11.959 3.42532 11.8608 3.27256 11.7046C3.14056 11.5695 3.04017 11.4068 2.97865 11.2282C2.90746 11.0214 2.9083 10.8002 2.90897 10.6243C2.90903 10.6078 2.90909 10.5917 2.90909 10.576V7.13778ZM4.18182 7.7753V10.576C4.18182 10.6981 4.1821 10.7609 4.18493 10.8064C4.18502 10.8078 4.1851 10.8091 4.18519 10.8103C4.18626 10.8109 4.1874 10.8116 4.18858 10.8123C4.22789 10.8352 4.28384 10.8635 4.39288 10.9181L7.82925 12.6394C7.91854 12.6842 7.96374 12.7066 7.99732 12.7212C7.99825 12.7216 7.99914 12.722 8 12.7224C8.00086 12.722 8.00175 12.7216 8.00268 12.7212C8.03626 12.7066 8.08146 12.6842 8.17075 12.6394L11.6071 10.9181C11.7162 10.8635 11.7721 10.8352 11.8114 10.8123C11.8126 10.8116 11.8137 10.8109 11.8148 10.8103C11.8149 10.8091 11.815 10.8078 11.8151 10.8064C11.8179 10.7609 11.8182 10.6981 11.8182 10.576V7.7753L8.51226 9.43126C8.50755 9.43363 8.50211 9.43641 8.49599 9.43953C8.43663 9.46988 8.31375 9.5327 8.17602 9.55859C8.05969 9.58045 7.94031 9.58045 7.82398 9.55859C7.68625 9.5327 7.56338 9.46988 7.50401 9.43953C7.49789 9.43641 7.49245 9.43363 7.48774 9.43126L4.18182 7.7753ZM7.87439 8.32454C7.87425 8.3246 7.87426 8.3246 7.87439 8.32454V8.32454ZM8.12559 8.32453C8.12572 8.32459 8.12573 8.32459 8.12559 8.32453V8.32453Z" fill="currentColor"></path></svg>
+                                                </span>
+
+                                                <svg class="w-5 h-5 animate-spin text-purple-600 loader-icon hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                            
+                                                <p>{{ __('Train') }}</p>
+                                            </a>
+                                            <a href="javascript: void(0)" data-id="{{ $material->id }}" data-target="modal4" class="openModalBtn flex justify-start items-center gap-1.5 text-14 font-normal text-color-14 dark:text-white font-Figtree px-4 py-2 hover:bg-color-F6 dark:hover:bg-[#3A3A39] rounded-t-none rounded-b-lg  modal-toggle text-left">
+                                                <span class="w-4 h-3">
+                                                    <svg class="w-3 h-3" width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M0.846154 0.8C0.378836 0.8 0 1.15817 0 1.6V2.4C0 2.84183 0.378836 3.2 0.846154 3.2H1.26923V10.4C1.26923 11.2837 2.0269 12 2.96154 12H8.03846C8.9731 12 9.73077 11.2837 9.73077 10.4V3.2H10.1538C10.6212 3.2 11 2.84183 11 2.4V1.6C11 1.15817 10.6212 0.8 10.1538 0.8H7.19231C7.19231 0.358172 6.81347 0 6.34615 0H4.65385C4.18653 0 3.80769 0.358172 3.80769 0.8H0.846154ZM3.38462 4C3.61827 4 3.80769 4.17909 3.80769 4.4V10C3.80769 10.2209 3.61827 10.4 3.38462 10.4C3.15096 10.4 2.96154 10.2209 2.96154 10L2.96154 4.4C2.96154 4.17909 3.15096 4 3.38462 4ZM5.5 4C5.73366 4 5.92308 4.17909 5.92308 4.4V10C5.92308 10.2209 5.73366 10.4 5.5 10.4C5.26634 10.4 5.07692 10.2209 5.07692 10V4.4C5.07692 4.17909 5.26634 4 5.5 4ZM8.03846 4.4V10C8.03846 10.2209 7.84904 10.4 7.61538 10.4C7.38173 10.4 7.19231 10.2209 7.19231 10V4.4C7.19231 4.17909 7.38173 4 7.61538 4C7.84904 4 8.03846 4.17909 8.03846 4.4Z" fill="currentColor"></path>
+                                                    </svg>
+                                                </span>
+                                                
+                                                <p>{{ __('Delete') }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        
+                    <tr>
+                        <td colspan="7">
+                            <svg class="mx-auto mt-10" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" fill="none">
+                                <g clip-path="url(#clip0_2698_2638)">
+                                <path d="M38.6467 13.4583H5.35361C4.07374 13.4583 3.03613 14.4958 3.03613 15.7757V30.9319H40.9641V15.7757C40.9641 14.4959 39.9265 13.4583 38.6467 13.4583Z" fill="#FF9A00"/>
+                                <path d="M8.8972 0C7.26421 0 5.94043 1.32378 5.94043 2.95677V41.0432C5.94043 42.6762 7.26421 44 8.8972 44H35.1026C36.7356 44 38.0594 42.6762 38.0594 41.0432V9.11745C38.0594 8.52337 37.8234 7.95369 37.4034 7.53354L30.5258 0.655961C30.1057 0.235984 29.5359 0 28.9419 0L8.8972 0Z" fill="#F5F5F5"/>
+                                <path d="M37.4035 7.53367L32.8447 2.97485L32.8284 10.622C32.8274 11.102 33.2163 11.4918 33.6963 11.4918C34.1757 11.4918 34.5642 11.8804 34.5642 12.3597V41.0434C34.5642 42.6763 33.2404 44.0001 31.6074 44.0001H35.1027C36.7357 44.0001 38.0594 42.6763 38.0594 41.0434V12.1156V9.11749C38.0596 8.52341 37.8236 7.95373 37.4035 7.53367Z" fill="#EAEAEA"/>
+                                <path d="M37.4033 7.5335L30.5257 0.655926C30.3342 0.464457 30.1114 0.311746 29.8696 0.20166V5.23279C29.8696 6.86577 31.1934 8.18955 32.8264 8.18955H37.8575C37.7475 7.94772 37.5948 7.72497 37.4033 7.5335Z" fill="#A8D0D5"/>
+                                <path d="M16.3243 21.9575L15.7131 20.5742C15.3422 19.7349 14.511 19.1934 13.5934 19.1934H5.35361C4.07374 19.1934 3.03613 20.2309 3.03613 21.5108V41.6824C3.03613 42.9623 4.07366 43.9999 5.35361 43.9999H38.6467C39.9265 43.9999 40.9641 42.9624 40.9641 41.6824V25.6559C40.9641 24.376 39.9266 23.3384 38.6467 23.3384H18.4441C17.5264 23.3384 16.6952 22.7969 16.3243 21.9575Z" fill="#FFB541"/>
+                                <path d="M12.187 20.5742L12.7982 21.9575C13.1691 22.7968 14.0003 23.3383 14.918 23.3383H18.444C17.5263 23.3382 16.6952 22.7968 16.3243 21.9575L15.7131 20.5742C15.3422 19.7349 14.511 19.1934 13.5934 19.1934H10.0674C10.985 19.1934 11.8161 19.7349 12.187 20.5742Z" fill="#FFA812"/>
+                                <path d="M38.6468 23.3384H35.1209C36.4006 23.3385 37.4381 24.376 37.4381 25.6559V41.6825C37.4381 42.9624 36.4006 44 35.1206 44H38.6467C39.9266 44 40.9642 42.9625 40.9642 41.6825V25.6558C40.9643 24.3759 39.9267 23.3384 38.6468 23.3384Z" fill="#FFA812"/>
+                                <path d="M16.6176 4.86731H10.0499C9.68309 4.86731 9.38574 4.56997 9.38574 4.20319C9.38574 3.83641 9.68309 3.53906 10.0499 3.53906H16.6176C16.9844 3.53906 17.2818 3.83641 17.2818 4.20319C17.2818 4.56997 16.9845 4.86731 16.6176 4.86731Z" fill="#3693BD"/>
+                                <path d="M16.6176 8.86121H10.0499C9.68309 8.86121 9.38574 8.56387 9.38574 8.19708C9.38574 7.8303 9.68309 7.53296 10.0499 7.53296H16.6176C16.9844 7.53296 17.2818 7.8303 17.2818 8.19708C17.2818 8.56387 16.9845 8.86121 16.6176 8.86121Z" fill="#3693BD"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_2698_2638">
+                                <rect width="44" height="44" fill="white"/>
+                                </clipPath>
+                                </defs>
+                            </svg>
+                            <p class="text-color-14 dark:text-white text-center font-medium font-Figtree text-20 mt-6">{{ __('No data found')}}</p>
+                            <p class="text-center font-medium text-color-89 text-15 px-5 py-3 font-Figtree mt-3 md:w-[450px] mx-auto">{{ __('Looks like you did not train any data yet.')}}</p>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+
+            <!-- Start Delete Modal  -->
+            <div
+                id="modal4"
+                class="sweet-modal fixed inset-0 hidden bg-color-14/50 backdrop-blur-[4px] flex items-center justify-center z-50 transition-opacity duration-300 opacity-0 p-4"
+            >
+                <!-- Modal Box -->
+                <div
+                    class="modalBox max-w-[600px] min-w-[300px] bg-white dark:bg-color-3A rounded-xl py-7 relative transform transition-all duration-300 scale-0 opacity-0"
+                >
+                    <div class="px-7">
+                        <h5
+                            class="max-w-[300px] text-xl text-color-14 dark:text-white text-center font-medium mb-0.5"
+                        >
+                            {{ __('Are you sure you want to delete this item?') }}
+                        </h5>
+                        <div class="flex justify-center gap-3 mt-6">
+                            <button
+                                class="delete-material w-full flex items-center justify-center rounded-[6px] text-sm text-center magic-bg hover:shadow-lg text-white px-5 py-2.5 font-medium hover:opacity-90 transition-all duration-200"
+                            >
+                                <span>{{ __('Delete') }}</span>
+                                <svg class="loader animate-spin h-5 w-5 ml-2 hidden" xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
+                                    <mask id="path-1-inside-1_1032_3036" fill="white">
+                                        <path d="M67 36C69.7614 36 72.0357 38.2493 71.6534 40.9841C70.685 47.9121 67.7119 54.4473 63.048 59.7573C57.2779 66.3265 49.3144 70.5713 40.644 71.6992C31.9736 72.8271 23.1891 70.761 15.9304 65.8866C8.67173 61.0123 3.4351 53.6628 1.19814 45.2104C-1.03881 36.7579 -0.123172 27.7803 3.77411 19.9534C7.67139 12.1266 14.2839 5.98568 22.3772 2.67706C30.4704 -0.631565 39.4912 -0.881694 47.7554 1.97337C54.4353 4.28114 60.2519 8.49021 64.5205 14.0322C66.2056 16.2199 65.3417 19.2997 62.9417 20.6656L60.8567 21.8524C58.4567 23.2183 55.4379 22.3325 53.5977 20.2735C50.9338 17.2927 47.5367 15.0161 43.7066 13.6929C38.2888 11.8211 32.3749 11.9851 27.0692 14.1542C21.7634 16.3232 17.4284 20.3491 14.8734 25.4802C12.3184 30.6113 11.7181 36.4969 13.1846 42.0381C14.6511 47.5794 18.0842 52.3975 22.8428 55.5931C27.6014 58.7886 33.3604 60.1431 39.0445 59.4037C44.7286 58.6642 49.9494 55.8814 53.7321 51.5748C56.4062 48.5302 58.2325 44.8712 59.0732 40.9628C59.6539 38.2632 61.8394 36 64.6008 36H67Z"></path>
+                                    </mask>
+                                    <path d="M67 36C69.7614 36 72.0357 38.2493 71.6534 40.9841C70.685 47.9121 67.7119 54.4473 63.048 59.7573C57.2779 66.3265 49.3144 70.5713 40.644 71.6992C31.9736 72.8271 23.1891 70.761 15.9304 65.8866C8.67173 61.0123 3.4351 53.6628 1.19814 45.2104C-1.03881 36.7579 -0.123172 27.7803 3.77411 19.9534C7.67139 12.1266 14.2839 5.98568 22.3772 2.67706C30.4704 -0.631565 39.4912 -0.881694 47.7554 1.97337C54.4353 4.28114 60.2519 8.49021 64.5205 14.0322C66.2056 16.2199 65.3417 19.2997 62.9417 20.6656L60.8567 21.8524C58.4567 23.2183 55.4379 22.3325 53.5977 20.2735C50.9338 17.2927 47.5367 15.0161 43.7066 13.6929C38.2888 11.8211 32.3749 11.9851 27.0692 14.1542C21.7634 16.3232 17.4284 20.3491 14.8734 25.4802C12.3184 30.6113 11.7181 36.4969 13.1846 42.0381C14.6511 47.5794 18.0842 52.3975 22.8428 55.5931C27.6014 58.7886 33.3604 60.1431 39.0445 59.4037C44.7286 58.6642 49.9494 55.8814 53.7321 51.5748C56.4062 48.5302 58.2325 44.8712 59.0732 40.9628C59.6539 38.2632 61.8394 36 64.6008 36H67Z" stroke="url(#paint0_linear_1032_3036)" stroke-width="24" mask="url(#path-1-inside-1_1032_3036)"></path>
+                                    <defs>
+                                        <linearGradient id="paint0_linear_1032_3036" x1="46.8123" y1="63.1382" x2="21.8195" y2="6.73779" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0" stop-color="#E60C84"></stop>
+                                            <stop offset="1" stop-color="#FFCF4B"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </button>
+                            <button
+                                class="closeModalBtn w-full flex items-center justify-center rounded-[6px] text-sm text-center bg-color-14 hover:shadow-lg text-white px-5 py-2.5 font-medium hover:opacity-90 transition-all duration-200"
+                            >
+                                <span>{{ __('Cancel') }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Delete Modal  -->
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    {{ $materials->onEachSide(1)->links('site.layout.partials.pagination') }}
+
+    <!-- End Table -->
+</div>

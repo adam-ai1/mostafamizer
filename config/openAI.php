@@ -28,7 +28,7 @@ return [
     'is_demo' => env('IS_DEMO', false),
 
     /* The application version */
-    'version' => env('ARTIFISM_VERSION', '1.0.0'),
+    'version' => env('VOXCRAFT_STUDIO_VERSION', '1.0.0'),
 
      /**
      * Thumbnail path

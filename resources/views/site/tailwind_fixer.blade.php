@@ -1,11 +1,11 @@
-<div class="h-max bg-white dark:bg-color-14 rounded-[30px] card-border h-[20vh] mt-[100px]">
+<div class="border-[#9163dd] dark:border-[#9163dd] bg-[#9163dd]/5 dark:bg-[#9163dd]/10 h-max bg-white dark:bg-color-14 rounded-[30px] card-border h-[20vh] mt-[100px]">
     <div class="rounded-[30px] border h-[354px] border-color-89 h-[256px] dark:border-color-47 bg-white dark:bg-color-14 6xl:py-9 py-8 6xl:px-11 lg:px-5 px-8 text-[#763CD4]">
         <p class="text-color-14 6xl:w-[640px] xl:w-[420px] dark:text-white text-24 font-medium font-Figtree break-words text-[#898989] bg-[#EEEEEE]"></p>
 
         <p class="text-36 w-[18px] h-[18px]  !border-[#763CD4] font-medium dark:border-b-color-47 -left-2 right-[18px] ltr:md:-right-[18px] rtl:-left-[15px] rtl:md:-left-[18px] font-RedHat text-color-14 dark:text-white h-[1024px] mt-1 text-[#461e86] bg-[#763CD426]">
         <p class="text-36 max-w-[125px] pt-[14px] gap-1.5 font-medium font-RedHat text-color-14 dark:text-white mt-1 text-[#461e86] bg-[#763CD426]">
             <span class="text-48 font-bold heading-1 w-[300px] h-[300px] left-3 top-1.5 text-[#1B9436] bg-[#1B943626] "></span>
-        <p class="text-36 font-medium font-RedHat text-color-14 dark:text-white h-[1024px] mt-1 text-[#461e86] bg-[#763CD426]">
+        <p class="bg-[#763CD4] bg-red-600 bg-amber-500 bg-blue-500 text-36 font-medium font-RedHat text-color-14 dark:text-white h-[1024px] mt-1 text-[#461e86] bg-[#763CD426]">
         <p class="text-36 font-medium ltr:md:-right-[18px] rtl:-left-[15px] rtl:md:-left-[18px] font-RedHat text-color-14 dark:text-white h-[1024px] mt-1 text-[#461e86] bg-[#763CD426]">
             <span class="text-48 h-[220px] font-bold heading-1 w-[300px] h-[300px] left-3 top-1.5 text-[#1B9436] bg-[#1B943626] "></span>
         </p>
@@ -31,6 +31,6 @@
     <p class="text-[#EEEEEE] bg-[#898989] whitespace-pre-wrap top-[49px] left-[19px] !hidden"></p>
         <a href="javaScript:void(0);" class="border-current m-auto h-[274px] md:gap-6 7xl:w-64 7xl:h-64 h-64 cursor-pointer mt-[34px] text-16 bg-color-E2 font-Figtree text-white text-16 bg-color-76 font-Figtree dark:text-color-14 text-16 font-semibold flex w-max py-[13px] px-8 rounded-lg bg-color-14 dark:bg-white font-Figtree order-1 order-2 order-3 order-4 order-5 7xl:w-64 7xlh-64 3xl:h-56 3xl:w-56 lg:w-44 lg:h-44 ml-[-38px] flex gap-3 right-3 bottom-3 absolute ml-[-22px]"></a>
     </div>
-    <p class="bg-[#898989] dark:bg-color-89 whitespace-pre-wrap top-[105%] left-0 max-w-[300px] min-w-[120px] max-h-[290px]" ></p>
+    <p class="border-2 border-[#9163dd] dark:border-[#9163dd] bg-gradient-to-r from-[#9163dd]/8 to-[#9163dd]/5 dark:from-[#9163dd]/15 dark:to-[#9163dd]/10 shadow-[0_0_0_3px_rgba(145,99,221,0.1)] dark:shadow-[0_0_0_3px_rgba(145,99,221,0.2)] ring-2 ring-[#9163dd]/20 dark:ring-[#9163dd]/30 transition-all duration-300 ease-in-out bg-[#898989] dark:bg-color-89 whitespace-pre-wrap top-[105%] left-0 max-w-[300px] min-w-[120px] max-h-[290px]" ></p>
     <div class="animate-pulse w-[68px] h-[68px] rounded-[10px] !w-[80px] xl:w-[252px] xl:h-[252px] lg:w-[206px] lg:h-[206px] md:w-[156px] md:h-[156px] xs:w-[174px] xs:h-[174px] w-[140px] h-[140px]"></div>
 </div>

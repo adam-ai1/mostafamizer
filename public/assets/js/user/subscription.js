@@ -27,7 +27,7 @@ function getPlan(packageId) {
     $.ajax({
         url: SITE_URL + `/plan-description/${packageId}`,
         type: "GET",
-        beforeSend: function() {
+        beforeSend: function () {
             setTimeout(() => {
                 $(".checked-loader").block({
                     message: `<div class="flex justify-center">
@@ -43,7 +43,7 @@ function getPlan(packageId) {
                 });
             }, 5);
         },
-        success: function(result) {
+        success: function (result) {
             $('#plans').find('.plan-description').replaceWith(result);
             $(".checked-loader").unblock();
         }
@@ -52,21 +52,21 @@ function getPlan(packageId) {
 $(document).on("submit", ".plan-form", function () {
     $('.update-plan-loader').removeClass('hidden');
     setTimeout(() => {
-    $('.update-plan-loader').addClass('hidden');
-}, 6000);
+        $('.update-plan-loader').addClass('hidden');
+    }, 6000);
 });
 
 if ($(".subscription-details").length > 0) {
     setTimeout(() => {
-        (window["ReactNativeWebView"]||window).postMessage(JSON.stringify(response));
+        (window["ReactNativeWebView"] || window).postMessage(JSON.stringify(response));
     }, 100);
 }
 
 //Plan Pricing
-$('input[name="check_billing"]').on('change', function() {
+$('input[name="check_billing"]').on('change', function () {
     var value = $(this).val();
     $('.plan-parent').addClass('hidden');
-    
+
     if ($(`.plan-${value}`).length == 0) {
         $('.plan-root').append(`
             <div class="plan-parent plan-${value}">
@@ -87,21 +87,21 @@ if (typeof is_onetime !== 'undefined' && is_onetime) {
 }
 
 // all plans
-$('.all-plans-toggle').on('click', function() {
+$('.all-plans-toggle').on('click', function () {
     $(`.show-current-subscription`).hide();
     $(`.show-all-plans`).show();
 })
 
-$('.back-to-current').on('click', function() {
+$('.back-to-current').on('click', function () {
     $(`.show-current-subscription`).show();
     $(`.show-all-plans`).hide();
 })
 
-$(document).ready(function(){
+$(document).ready(function () {
     $('.card-border.disable-gradient-border').removeClass('card-border');
 });
 
-$('.nav-link-activity').on('click', function() {
+$('.nav-link-activity').on('click', function () {
     var value = $(this).data('val');
     $('.nav-link-activity').removeClass('active').css({
         'background-color': '',
@@ -116,7 +116,7 @@ $('.nav-link-activity').on('click', function() {
     });
 
     $('.plan-parent').addClass('hidden');
-    
+
     if ($(`.plan-${value}`).length == 0) {
         $('.plan-root').append(`
             <div class="plan-parent plan-${value}">
@@ -137,32 +137,68 @@ $(".upgrade-allPlans").on('click', function () {
     let packageName = planContainer.find(".package-name").text().trim();
     let planPrice = planContainer.find(".plan-price").text().trim();
     let billingCycle = planContainer.find(".billing-text").text().trim();
-    let featuresArray = planContainer.find(".break-words").map((index,element) =>{
-        if (index > 0) { 
-        return $(element).text().trim();
+    let featuresArray = planContainer.find(".break-words").map((index, element) => {
+        if (index > 0) {
+            return $(element).text().trim();
         }
     }).get();
 
+    // Extract supported features if they exist
+    let supportedFeaturesText = '';
+    let supportedFeatures = [];
+    try {
+        supportedFeatures = JSON.parse(planContainer.attr('data-supported-features') || '[]');
+    } catch (e) {
+        supportedFeatures = [];
+    }
+
+    if (supportedFeatures.length > 0) {
+        let featureItems = supportedFeatures.map(feature =>
+            '<li class="px-4 py-2 bg-gray-50 rounded-lg border border-gray-100 shadow-sm text-gray-800 font-medium transition-colors hover:bg-indigo-50 hover:border-indigo-200 hover:shadow hover:text-indigo-700">' +
+            feature +
+            '</li>'
+        ).join('');
+
+        supportedFeaturesText = '<div class="flex items-center gap-1.5">' +
+            '<span class="text-base text-gray-900 dark:text-white font-semibold">' + jsLang('Feature Highlights') + '</span>' +
+            '<div class="relative group">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 cursor-pointer" fill="none" viewBox="0 0 20 20">' +
+            '<circle cx="10" cy="10" r="9" stroke="#bcbcbc" stroke-width="2" fill="none"/>' +
+            '<path d="M10 7.5a1 1 0 100-2 1 1 0 000 2zM10 9.5v4" stroke="#bcbcbc" stroke-width="1.5" stroke-linecap="round"/>' +
+            '</svg>' +
+            '<div class="absolute left-0 top-full pt-2 w-64 z-50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200">' +
+            '<div class="bg-white border border-gray-200 rounded-xl shadow-2xl max-h-56 overflow-y-auto p-4 flex flex-col gap-2">' +
+            '<div class="mb-3">' +
+            '<span class="block text-[13px] text-gray-500 dark:text-gray-400 font-semibold leading-tight">' +
+            jsLang('What\'s included in your plan:') +
+            '</span>' +
+            '</div>' +
+            '<ul class="flex flex-col gap-2">' + featureItems + '</ul>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+    }
 
     $(".modal-package-name").text(packageName);
     $(".modal-selling-price").html(planPrice + `<span class="text-14 font-medium modal-billing-cycle">
     ${billingCycle}
      </span>`);
 
-    var text = featuresArray.map(addContent).join('');
+    var text = supportedFeaturesText + featuresArray.map(addContent).join('');
     $('.modal-plan').html(text);
 
-    const btnText = $(this).closest('.disable-gradient-border').find('.submit-btn').text();  
-     $('.modal-btn').text(btnText);
+    const btnText = $(this).closest('.disable-gradient-border').find('.submit-btn').text();
+    $('.modal-btn').text(btnText);
     $(".upgradePlan-allPlans-modal").find('.current-subscription-plan-modal').html(planContainer.find('.current-subscription-plan').html());
-   
+
 });
 $(".modal-close-btn").on('click', function () {
     $('.modal-btn').text('');
     $(".billing-information-modal, .upgradePlan-information-modal").css("display", "none");
 });
 
-const addContent=(data) =>{
+const addContent = (data) => {
     var randomNumber = Math.random();
     return `
     <div class="flex items-center text-color-14 dark:text-white text-15 font-normal font-Figtree gap-[9px]">
@@ -184,7 +220,7 @@ const addContent=(data) =>{
     </div>`;
 }
 
-$('.plan-disable-btn').on('submit', function() {
+$('.plan-disable-btn').on('submit', function () {
     var button = $('.plan-loader');
     button.prop('disabled', true);
 
@@ -222,8 +258,8 @@ $(document).on("click", ".plan-modal-btn", function () {
 
 let tabsContainer = document.querySelector("#sub-tabs");
 let tabTogglers = tabsContainer.querySelectorAll("#sub-tabs a");
-tabTogglers.forEach(function(toggler) {
-    toggler.addEventListener("click", function(e) {
+tabTogglers.forEach(function (toggler) {
+    toggler.addEventListener("click", function (e) {
         e.preventDefault();
         let tabName = this.getAttribute("href");
         let tabContents = document.querySelector("#tab-contents");
@@ -237,6 +273,6 @@ tabTogglers.forEach(function(toggler) {
             tabContents.children[i].classList.add("hidden");
         }
         e.target.parentElement.classList.add("subscription-plan-tab-bg", "text-white",
-        "rounded-lg");
+            "rounded-lg");
     });
 });

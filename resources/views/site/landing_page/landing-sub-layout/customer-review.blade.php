@@ -119,7 +119,7 @@
                                         <span class="font-medium text-color-14 dark:text-white text-15 font-Figtree">{{ $review['rating'] }}</span>
                                     </div>
                                     <div class="flex justify-start gap-2.5 items-start mr-12 review-section-profile">
-                                        <img class="rounded-full w-[50px] h-[50px] object-fit neg-transition-scale"
+                                        <img class="rounded-full w-[50px] h-[50px] object-fit"
                                             src="{{$review['photo']}}"
                                             alt="{{ __('Image') }}">
                                         <div>

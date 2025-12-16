@@ -631,6 +631,8 @@ class LoginController extends Controller
                 try {
                     DB::beginTransaction();
                     $id = (new User)->store(['name' => $data->name, 'email' => $data->email, 'password' => Hash::make(Str::random(5)), 'status' => 'Active',  'sso_account_id' => $data->id, 'sso_service' => $service], "url", $data->avatar);
+                    
+                    (new FolderService())->createFolder($id);
 
                     if (!empty($id)) {
                         $role = Role::getAll()->where('slug', 'user')->first();

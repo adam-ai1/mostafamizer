@@ -1,0 +1,13 @@
+{
+    "name": "SeoAnalyzer",
+    "alias": "seoanalyzer",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SeoAnalyzer\\Providers\\SeoAnalyzerServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

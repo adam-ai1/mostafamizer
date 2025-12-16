@@ -1,0 +1,13 @@
+{
+    "name": "SmartUpdater",
+    "alias": "smartupdater",
+    "description": "Smart selective module updater - Install only new modules without affecting existing code",
+    "display_name": "Smart Updater",
+    "keywords": ["updater", "smart", "selective", "modules"],
+    "priority": 0,
+    "providers": [
+        "Modules\\SmartUpdater\\Providers\\SmartUpdaterServiceProvider"
+    ],
+    "files": [],
+    "core": true
+}

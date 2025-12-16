@@ -1,0 +1,14 @@
+{
+    "name": "FalAi",
+    "alias": "falai",
+    "description": "Fal AI is a powerful generative platform offering text-to-video, image-to-video, text-to-image, and image-to-image creation. Developers can effortlessly build and scale AI-powered media applications using ready-to-use models and serverless GPU infrastructure.",
+    "version": "1.1",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FalAi\\Providers\\FalAiServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

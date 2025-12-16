@@ -1,0 +1,13 @@
+{
+    "name": "VoxChat",
+    "alias": "voxchat",
+    "description": "VoxChat - محادثة ذكية مع مساعد VoxCraft باستخدام GPT-4o",
+    "keywords": ["voxchat", "ai", "chat", "gpt-4o", "assistant"],
+    "priority": 1,
+    "providers": [
+        "Modules\\VoxChat\\Providers\\VoxChatServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

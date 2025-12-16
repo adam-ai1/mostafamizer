@@ -1,0 +1,14 @@
+{
+    "name": "AiInfluencer",
+    "alias": "aiinfluencer",
+    "description": "AI Influencer is a futuristic tool with three core features: AI Shorts to instantly turn long videos into short viral clips, URL to Video to transform any link into shareable content, and Influencer Avatar to create personalized AI-driven virtual influencers—making content creation smarter, faster, and more impactful.",
+    "keywords": [],
+    "priority": 15,
+    "version": "1.0",
+    "providers": [
+        "Modules\\AiInfluencer\\Providers\\AiInfluencerServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

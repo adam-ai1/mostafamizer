@@ -1995,8 +1995,15 @@ body.shrink .bill-tooltip .ui-tooltip-content::before {
  }
 
 /* rtl implementation */
-html[dir="rtl"] .neg-transition-scale {
+/* Flip icons in RTL but exclude images/logos */
+html[dir="rtl"] .neg-transition-scale:not(img):not(a):not(.no-flip) {
     transform: scaleX(-1);
+}
+/* Ensure images and logos inside neg-transition-scale are not flipped */
+html[dir="rtl"] .neg-transition-scale img,
+html[dir="rtl"] a.neg-transition-scale,
+html[dir="rtl"] .neg-transition-scale.no-flip {
+    transform: none;
 }
 @media only screen and (max-width:767px){
     html[dir="rtl"] .rtl-lang-dropdown{
@@ -4259,4 +4266,21 @@ html[dir="rtl"] .video-container .progress-container {
     .dropdown-menu {
     width: 275px;
 }
+}
+
+/* Marketing Bot Icon - Dark Mode Support */
+html.dark svg.marketing-bot-icon .bot-eye,
+.dark svg.marketing-bot-icon .bot-eye,
+html.dark .feature-icon svg.marketing-bot-icon .bot-eye,
+.dark .feature-icon svg.marketing-bot-icon .bot-eye,
+.dark svg.marketing-bot-icon circle.bot-eye {
+    fill: #000000 !important;
+}
+
+html.dark svg.marketing-bot-icon .bot-mouth,
+.dark svg.marketing-bot-icon .bot-mouth,
+html.dark .feature-icon svg.marketing-bot-icon .bot-mouth,
+.dark .feature-icon svg.marketing-bot-icon .bot-mouth,
+.dark svg.marketing-bot-icon path.bot-mouth {
+    stroke: #000000 !important;
 }

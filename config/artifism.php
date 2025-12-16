@@ -16,7 +16,7 @@ return [
     'is_demo' => env('IS_DEMO', false),
 
     /* The application version */
-    'version' => env('ARTIFISM_VERSION', '1.0.0'),
+    'version' => env('VOXCRAFT_STUDIO_VERSION', '1.0.0'),
 
     /** The Application Install */
     'app_install' => env('APP_INSTALL', false),
@@ -35,11 +35,11 @@ return [
     'item_code' => '47251169',
 
     /* The application file version */
-    'file_version' => '6.3.0',
+    'file_version' => '6.5.0',
 
-    /** Artifism versions
+    /** voxcraft Studio versions
      *
-     * All of the Artifism versions are listed here.
+     * All of the voxcraft Studio versions are listed here.
      * **/
     'versions' => [
         '1.0.0',
@@ -97,6 +97,8 @@ return [
         '6.1.0',
         '6.2.0',
         '6.3.0',
+        '6.4.0',
+        '6.5.0',
     ],
 
     /**

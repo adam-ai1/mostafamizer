@@ -419,3 +419,17 @@ html[dir="rtl"] .link-icon input {
    padding-left: 20px !important;
    padding-right: 48px !important;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  background-color: rgba(137, 137, 137, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(137, 137, 137, 0.7);
+}

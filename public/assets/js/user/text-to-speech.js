@@ -44,7 +44,7 @@ $(document).ready(function () {
 
     const newTextField = $('<div>').addClass('mt-3').html(`
         <div class="flex justify-end items-center">
-            <p class="text-color-89 font-Figtree font-medium text-[13px] leading-5">${jsLang(`Words Limit: ${max_length}`)}</p>
+            <p class="text-color-89 font-Figtree font-medium text-[13px] leading-5">${jsLang("Words Limit: :x").replace(':x', max_length)}</p>
         </div>
         <div class="relative w-full text-area-content">
             <div class="relative valid-parent border grow border-color-89 dark:border-color-47 dark:bg-[#333332] rounded-xl p-2 flex gap-3 mt-2">

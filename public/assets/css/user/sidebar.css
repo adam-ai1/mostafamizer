@@ -217,3 +217,297 @@ body.shrink .accordion-submenu-border{
 body.shrink .speech-icon{
     margin-left: 7px;
 }
+
+/* Enhanced hover effects - subtle and smooth */
+.category-header:hover {
+    background-color: rgba(249, 250, 251, 0.8);
+}
+
+.dark .category-header:hover {
+    background-color: rgba(31, 41, 55, 0.5);
+}
+
+.category-header.active-category {
+    background-color: #FFFFFF !important;
+    border-right-width: 3px;
+    border-right-style: solid;
+    border-image: linear-gradient(to bottom, #FFCF4B, #E60C84) 1;
+}
+
+.dark .category-header.active-category {
+    background-color: #474746 !important;
+    border-right-width: 3px;
+    border-right-style: solid;
+    border-image: linear-gradient(to bottom, #FFCF4B, #E60C84) 1;
+}
+
+.category-header.active-category:hover {
+    background-color: #FFFFFF !important;
+}
+
+.dark .category-header.active-category:hover {
+    background-color: #474746 !important;
+}
+
+.category-header.active-category .transion-hide span:first-child {
+    font-weight: 600 !important;
+}
+
+/* Active menu item indicator - cleaner design */
+.main-menu.active {
+    background-color: rgba(226, 40, 97, 0.1) !important;
+    border-left: 3px solid #E22861;
+    font-weight: 500;
+    color: #E22861 !important;
+}
+
+.dark .main-menu.active {
+    background-color: rgba(226, 40, 97, 0.2) !important;
+    border-left-color: #FCCA19;
+    color: #FCCA19 !important;
+}
+
+/* Smooth transitions */
+.category-items {
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Arrow icon animation */
+.category-arrow {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+.category-arrow.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Menu item hover effect - subtle */
+.main-menu:not(.active):hover {
+    background-color: rgba(249, 250, 251, 0.6);
+}
+
+.dark .main-menu:not(.active):hover {
+    background-color: rgba(31, 41, 55, 0.4);
+}
+
+/* NEW Badge Pulse Animation - subtle */
+@keyframes pulse-glow {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.85;
+    }
+}
+
+.new-badge {
+    animation: pulse-glow 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Mobile Optimizations - Touch Targets */
+@media (max-width: 768px) {
+    .category-header {
+        min-height: 44px !important;
+        padding: 12px 16px !important;
+    }
+    
+    .main-menu {
+        min-height: 44px !important;
+        padding: 12px 16px !important;
+    }
+    
+    .category-items {
+        transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Better spacing on mobile */
+    .category-header,
+    .main-menu {
+        margin-bottom: 4px;
+    }
+}
+
+/* Smooth mobile animations */
+@media (prefers-reduced-motion: no-preference) {
+    .category-items {
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .category-items,
+    .category-header svg:last-child,
+    .new-badge {
+        animation: none;
+        transition: none;
+    }
+}
+
+/* Collapsed sidebar styles for category headers */
+body.shrink .category-header {
+    padding: 0.75rem !important;
+    justify-content: center !important;
+    gap: 0 !important;
+}
+
+/* Show arrow when collapsed and position it next to the icon */
+body.shrink .category-header .category-arrow {
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0;
+    margin-left: 4px !important;
+    opacity: 1 !important;
+    position: relative !important;
+}
+
+/* When collapsed, center icon and arrow together */
+body.shrink .category-header {
+    justify-content: center !important;
+}
+
+body.shrink .category-header > div {
+    justify-content: center !important;
+    gap: 4px !important;
+    width: auto !important;
+    flex: 0 0 auto !important;
+}
+
+/* Ensure the arrow is visible and positioned correctly when collapsed */
+body.shrink .category-header .category-arrow.transion-hide {
+    display: block !important;
+    opacity: 1 !important;
+}
+
+/* Hide text, count and NEW badge when collapsed */
+body.shrink .category-header .transion-hide {
+    display: none !important;
+}
+
+body.shrink .category-header .text-xs,
+body.shrink .category-header .new-badge {
+    display: none !important;
+}
+
+body.shrink .main-menu .lock-badge {
+    display: none !important;
+}
+
+/* Center icon when collapsed - match Dashboard behavior */
+body.shrink .category-header .category-svg {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+}
+
+/* Override Tailwind h-5 w-5 classes when collapsed */
+body.shrink .category-header .category-svg.h-5,
+body.shrink .category-header .category-svg.w-5 {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+}
+
+/* Maintain icon size when collapsed */
+body.shrink .category-header .category-svg svg {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    flex-shrink: 0;
+}
+
+/* Maintain menu item icon size when collapsed */
+body.shrink .main-menu span {
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+}
+
+/* Override Tailwind classes for menu item icons */
+body.shrink .main-menu span.h-5,
+body.shrink .main-menu span.w-5 {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+}
+
+body.shrink .main-menu span svg {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    flex-shrink: 0;
+}
+
+/* Ensure all SVG elements maintain size */
+body.shrink .category-header svg,
+body.shrink .main-menu svg {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+}
+
+/* Prevent any scaling or transforms that might enlarge icons */
+body.shrink .category-header .category-svg,
+body.shrink .category-header .category-svg svg,
+body.shrink .main-menu span,
+body.shrink .main-menu span svg {
+    transform: scale(1) !important;
+    transform-origin: center !important;
+}
+
+/* Override any flex-grow that might expand icons */
+body.shrink .category-header .category-svg,
+body.shrink .main-menu span {
+    flex-grow: 0 !important;
+    flex-basis: 20px !important;
+}
+
+/* Ensure button itself is centered when collapsed */
+body.shrink .category-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Better visual separation between categories */
+.category-header {
+    margin-bottom: 2px;
+}
+
+/* Improved spacing for menu items */
+.category-items li {
+    margin-top: 1px;
+}
+
+/* Cleaner active state */
+.main-menu.active span {
+    font-weight: 500;
+}

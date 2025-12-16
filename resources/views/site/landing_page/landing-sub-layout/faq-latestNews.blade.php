@@ -10,7 +10,7 @@
 
     @if($count != 0)
     <div>
-        <img class="absolute -top-[28rem] w-full sm:block hidden bg-four neg-transition-scale"
+        <img class="absolute -top-[28rem] w-full sm:block hidden bg-four"
             src="{{ asset('Modules/OpenAI/Resources/assets/image/bg-four.png') }}" alt="">
         <div class="lg:mt-[172px] mt-[72px] 9xl:px-[310px] 8xl:px-40 lg:px-16 md:px-10 px-5 relative">
             <div class="relative flex justify-center items-center">
@@ -107,15 +107,15 @@
     @if (count($blogs) != 0)
         <div class="latest-news 2xl:w-[66%] w-full overflow-hidden pl-0 6xl:rounded-[30px] !rounded-6">
             <div class="swiper slider2 6xl:rounded-[30px] !rounded-6">
-                <img class="absolute top-0 lg:right-[50px] right-[316px] z-50 dark:hidden hidden lg:block latest-news-overlay neg-transition-scale"
+                <img class="absolute top-0 lg:right-[50px] right-[316px] z-50 dark:hidden hidden lg:block latest-news-overlay"
                     src="{{ asset('Modules/OpenAI/Resources/assets/image/white-overlay.png') }}" alt="">
-                <img class="absolute top-0 lg:right-[50px] right-[316px] z-50 hidden dark:hidden lg:dark:block latest-news-overlay neg-transition-scale"
+                <img class="absolute top-0 lg:right-[50px] right-[316px] z-50 hidden dark:hidden lg:dark:block latest-news-overlay"
                     src="{{ asset('Modules/OpenAI/Resources/assets/image/black-overlay.png') }}" alt="">
                 <div class="swiper-wrapper w-full 6xl:rounded-[30px] !rounded-6">
                     @foreach ( $blogs as $blog )
                         <a class="swiper-slide 6xl:rounded-[30px] !rounded-6" href="{{ route('blog.details', [$blog->slug]) }}">
                             <div class="w-full 6xl:rounded-[30px] rounded-6 overflow-hidden latest-slider-footer !rounded-6">
-                                <img class="9xl:!w-full xs:w-full w-[360px] md:!h-[360px] h-[270px] object-cover 6xl:!rounded-[30px] !rounded-6 inner-img neg-transition-scale"
+                                <img class="9xl:!w-full xs:w-full w-[360px] md:!h-[360px] h-[270px] object-cover 6xl:!rounded-[30px] !rounded-6 inner-img"
                                     src="{{ $blog->fileUrl() }}"
                                     alt="{{ __('Image') }}">
                                 <div class="latest-slider-footer absolute bottom-0 lg:p-8 p-5 pb-[20px] w-full">

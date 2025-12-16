@@ -59,6 +59,12 @@ class SiteController extends Controller
                     }
                 }
             }
+            
+            // Custom view for about-us page
+            if ($slug === 'about-us' && view()->exists('site.pages.about-us')) {
+                return view('site.pages.about-us', $data);
+            }
+            
             return view('site.pages.page', $data);
         }
 
