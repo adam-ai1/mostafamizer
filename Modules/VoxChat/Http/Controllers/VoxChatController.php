@@ -150,9 +150,15 @@ class VoxChatController extends Controller
                 $conversation->generateTitle();
             }
 
-            // Increment VoxChat usage
+            // Count words in AI response and deduct from word credits
+            $wordCount = str_word_count($aiResponse['content']);
+            if ($wordCount < 1) {
+                $wordCount = 1; // Minimum 1 word
+            }
+            
+            // Increment word usage (same as Use Cases)
             $subscription = subscription('getUserSubscription', $userId);
-            subscription('usageIncrement', $subscription?->id, 'voxchat', 1, $userId);
+            subscription('usageIncrement', $subscription?->id, 'word', $wordCount, $userId);
 
             return response()->json([
                 'success' => true,
@@ -281,9 +287,15 @@ class VoxChatController extends Controller
 
             $conversation->touch();
 
-            // Increment VoxChat usage
+            // Count words in AI response and deduct from word credits
+            $wordCount = str_word_count($result['assistant_text']);
+            if ($wordCount < 1) {
+                $wordCount = 1; // Minimum 1 word
+            }
+            
+            // Increment word usage (same as Use Cases)
             $subscription = subscription('getUserSubscription', $userId);
-            subscription('usageIncrement', $subscription?->id, 'voxchat', 1, $userId);
+            subscription('usageIncrement', $subscription?->id, 'word', $wordCount, $userId);
 
             return response()->json([
                 'success' => true,

@@ -1166,43 +1166,15 @@ if (! function_exists('hasAccess')) {
      *
      * Determines access based on user role and permissions.
      * Admin users are granted access by default.
+     * NOTE: Access check disabled - all logged in users have access to all features
      *
      * @param string $feature The feature to check access for.
      * @return bool True if the user has access, false otherwise.
      */
     function hasAccess(string $feature)
     {
-        if (!auth()->check()) {
-            return false;
-        }
-
-        $userId = (new \Modules\OpenAI\Services\ContentService())->getCurrentMemberUserId('meta', null, ['user_id' => auth()->id()]);
-        
-        if (is_array($userId)) {
-            return false;
-        }
-
-        $userId = is_int($userId) ? $userId : auth()->id();
-
-        $subscription = subscription('isSubscribed', $userId);
-
-        // Check subscription access
-        $hasSubscriptionAccess = (bool) subscription('getUserSubscriptionByFeature', $feature);
-
-        // Check credit access using latest SubscriptionDetails
-        $hasCreditAccess = \Modules\Subscription\Entities\SubscriptionDetails::where('user_id', $userId)
-            ->where('billing_cycle', null)
-            ->whereHas('credit')
-            ->exists();
-
-        // If user has both subscription and credit access, use priority
-        if ($subscription && $hasCreditAccess) {
-            $priority = preference('credit_balance_priority', 'subscription');
-            return $priority === 'subscription' ? $hasSubscriptionAccess : $hasCreditAccess;
-        }
-        
-        // If user has either subscription or credit access, grant access
-        return $hasSubscriptionAccess || $hasCreditAccess;
+        // Always return true for logged in users - access check disabled
+        return auth()->check();
     }
 }
 

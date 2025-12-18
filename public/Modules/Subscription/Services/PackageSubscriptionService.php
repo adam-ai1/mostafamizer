@@ -294,6 +294,42 @@ use Modules\Subscription\Traits\SubscriptionTrait;
     }
 
     /**
+     * Remove any remaining allowance when a subscription has expired.
+     */
+    private function expireSubscriptionCredits(int $subscriptionId): void
+    {
+        foreach ($this->getFeatureList() as $feature) {
+            $meta = $this->getFeatureOption($subscriptionId, $feature);
+
+            if (!$meta) {
+                continue;
+            }
+
+            // For unlimited features (-1) we zero both value and usage; otherwise set usage to the full limit.
+            $resetUsage = $meta['value'] == -1 ? 0 : $meta['value'];
+
+            PackageSubscriptionMeta::where([
+                'package_subscription_id' => $subscriptionId,
+                'type' => 'feature_' . $feature,
+                'key' => 'usage'
+            ])->update(['value' => $resetUsage]);
+
+            if ($meta['value'] == -1) {
+                PackageSubscriptionMeta::where([
+                    'package_subscription_id' => $subscriptionId,
+                    'type' => 'feature_' . $feature,
+                    'key' => 'value'
+                ])->update(['value' => 0]);
+            }
+        }
+
+        SubscriptionDetails::where('package_subscription_id', $subscriptionId)
+            ->whereIn('status', ['Active', 'Cancel'])
+            ->orderBy('id', 'desc')
+            ->first()?->update(['features' => json_encode(array_fill_keys($this->getFeatureList(), 0))]);
+    }
+
+    /**
      * Find difference between two days
      *
      * @param string $start_date
@@ -441,18 +477,6 @@ use Modules\Subscription\Traits\SubscriptionTrait;
     {
         if ($this->subscription && in_array($this->subscription->status, ['Active', 'Cancel']) && !$this->isExpired($this->subscription->user_id)) {
             foreach ($this->featuresLimitRemaining($this->subscription->id) as $key => $value) {
-                if (isset($data[$key]['is_value_fixed']) && $data[$key]['is_value_fixed'] === '0') {
-                    $data[$key]['value'] += $value;
-                }
-            }
-        } else if ($this->subscription) {
-            $history = SubscriptionDetails::where('package_subscription_id', $this->subscription->id)->whereIn('status', ['Active', 'Cancel'])->orderBy('id', 'desc')->first();
-
-            if (!$history) {
-                return $data;
-            }
-
-            foreach (json_decode($history->features) as $key => $value) {
                 if (isset($data[$key]['is_value_fixed']) && $data[$key]['is_value_fixed'] === '0') {
                     $data[$key]['value'] += $value;
                 }
@@ -869,6 +893,12 @@ use Modules\Subscription\Traits\SubscriptionTrait;
         }
         
         if ($this->isValidSubscription($userId ? $userId : auth()->user()->id, $feature)['status'] == 'success') {
+            $remaining = $this->featureLimitRemaining($subscriptionId, $feature);
+
+            if ($remaining != -1 && $remaining < $value) {
+                return false;
+            }
+
             return $this->subscriptionUsageIncrement($subscriptionId, $feature, $value);
         }
         
@@ -1075,6 +1105,9 @@ use Modules\Subscription\Traits\SubscriptionTrait;
         }
 
         if ($this->isExpired($userId)) {
+            // Once expired, wipe remaining allowance so it cannot be reused or carried over.
+            $this->expireSubscriptionCredits($subscription->id);
+
             return [
                 'status' => $status,
                 'message' => __('Your subscription is expired.')

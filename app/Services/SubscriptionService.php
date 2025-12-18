@@ -490,9 +490,113 @@ class SubscriptionService
         
         (new CouponService)->storeCouponRedeem($details->id, $details->package_id, 'Active', 'onetime');
 
+        // Create package_subscription for the free package so features like VoxChat work
+        $this->createFreePackageSubscription($user->id, $credit);
+
         return [
             'status' => 'success',
             'message' => __('You have successfully purchase the plan.')
         ];
+    }
+
+    /**
+     * Create a free package subscription for new users
+     *
+     * @param int $userId
+     * @param object $credit
+     * @return void
+     */
+    protected function createFreePackageSubscription($userId, $credit)
+    {
+        // Find the free package (code = 'default')
+        $freePackage = Package::where('code', 'default')->first();
+        
+        if (!$freePackage) {
+            return; // No free package found
+        }
+
+        // Check if user already has a package subscription
+        $existingSubscription = PackageSubscription::where('user_id', $userId)->first();
+        if ($existingSubscription) {
+            return; // Already has a subscription
+        }
+
+        // Create package subscription
+        $subscription = PackageSubscription::create([
+            'code' => $this->packageSubscriptionService->generateUniqueCode(),
+            'user_id' => $userId,
+            'package_id' => $freePackage->id,
+            'activation_date' => now(),
+            'billing_date' => now(),
+            'next_billing_date' => now()->addYears(100), // Essentially unlimited
+            'billing_price' => 0,
+            'billing_cycle' => 'lifetime',
+            'amount_billed' => 0,
+            'amount_received' => 0,
+            'amount_due' => 0,
+            'is_trial' => 0,
+            'renewable' => 0,
+            'payment_status' => 'Paid',
+            'status' => 'Active',
+        ]);
+
+        // Add subscription meta for features using DB::table
+        $features = $credit->features ?? [];
+        foreach ($features as $feature => $value) {
+            \DB::table('package_subscriptions_meta')->insert([
+                'package_subscription_id' => $subscription->id,
+                'type' => 'feature_' . $feature,
+                'key' => 'value',
+                'value' => (string) $value,
+            ]);
+            \DB::table('package_subscriptions_meta')->insert([
+                'package_subscription_id' => $subscription->id,
+                'type' => 'feature_' . $feature,
+                'key' => 'status',
+                'value' => 'Active',
+            ]);
+            \DB::table('package_subscriptions_meta')->insert([
+                'package_subscription_id' => $subscription->id,
+                'type' => 'feature_' . $feature,
+                'key' => 'usage',
+                'value' => '0',
+            ]);
+        }
+
+        // Add feature access meta as single JSON record (correct format)
+        $featureAccess = [
+            'template' => '1',
+            'long_article' => '0',
+            'image' => '1',
+            'video' => '1',
+            'text_to_video' => '0',
+            'code' => '1',
+            'speech_to_text' => '1',
+            'voiceover' => '1',
+            'ai-duo-podcast' => '1',
+            'audio-ads' => '1',
+            'seo-analyzer' => '1',
+            'presentation' => '0',
+            'chat' => '1',
+            'aichatbot' => '0',
+            'plagiarism' => '0',
+            'ai_detector' => '0',
+            'voice_clone' => '0',
+            'ai_persona' => '0',
+            'ai_avatar' => '0',
+            'ai_product_photography' => '0',
+            'marketing_bot' => '0',
+            'ai_shorts' => '0',
+            'url_to_video' => '0',
+            'influencer_avatar' => '0',
+            'voxchat' => '1',
+        ];
+
+        \DB::table('package_subscriptions_meta')->insert([
+            'package_subscription_id' => $subscription->id,
+            'type' => 'featureAccess',
+            'key' => 'featureAccess',
+            'value' => json_encode($featureAccess),
+        ]);
     }
 }

@@ -26,9 +26,11 @@ use App\Rules\CheckValidEmail;
 use Illuminate\Support\Facades\Validator;
 
 use Modules\Subscription\Entities\{
-    Credit, SubscriptionDetails, PackageSubscription
+    Credit, SubscriptionDetails, PackageSubscription, Package
 };
 use Modules\Subscription\Services\PackageService;
+use Modules\Subscription\Services\PackageSubscriptionService;
+use App\Services\SubscriptionService;
 
 class UserController extends Controller
 {
@@ -78,7 +80,28 @@ class UserController extends Controller
      */
     public function subscription(): View
     {
-        return view('user.subscription');
+        $packageSubscriptionService = app(PackageSubscriptionService::class);
+        $subscriptionService = app(SubscriptionService::class);
+        
+        $data['activeSubscription'] = $packageSubscriptionService->getUserSubscription();
+        $data['activeFeatureLimits'] = $packageSubscriptionService->getActiveFeature($data['activeSubscription']?->id ?? 1);
+        $data['packages'] = Package::where('status', 'Active')->orderBy('sort_order')->get();
+        $data['activeSubscriptionPackage'] = Package::find($data['activeSubscription']?->package_id);
+        $data['activePackage'] = $subscriptionService->activePackage();
+        
+        if ($data['activePackage']) {
+            $data['activePackageDescription'] = $subscriptionService->planDescription($data['activePackage']->id);
+        } else {
+            // Default empty description if no active package
+            $data['activePackageDescription'] = [
+                'package' => (object)['id' => 0, 'name' => '', 'short_description' => ''],
+                'features' => []
+            ];
+        }
+        
+        $data['credits'] = Credit::whereNot('type', 'default')->where('status', 'Active')->orderBy('sort_order')->get();
+
+        return view('user.subscription', $data);
     }
 
     /**

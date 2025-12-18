@@ -5,8 +5,10 @@
 
     if ($subscription != NULL) {
         $subscriptionMeta = Modules\Subscription\Entities\PackageSubscriptionMeta::where('package_subscription_id', $subscription->id)->where('type', 'feature_word')->get();
-        $creditLimit = $subscriptionMeta->where('key', 'value')->first()->value;
-        $creditUsed = $subscriptionMeta->where('key', 'usage')->first()->value;
+        $creditLimitMeta = $subscriptionMeta->where('key', 'value')->first();
+        $creditUsedMeta = $subscriptionMeta->where('key', 'usage')->first();
+        $creditLimit = $creditLimitMeta ? $creditLimitMeta->value : 0;
+        $creditUsed = $creditUsedMeta ? $creditUsedMeta->value : 0;
         $creditPercentage = $creditLimit == 0 ? 0 : round( (($creditLimit  - $creditUsed) * 100) / $creditLimit );
     }
     
@@ -237,21 +239,6 @@
                                                             <!-- Tooltip -->
                                                             <div class="absolute right-0 bottom-full mb-2 opacity-0 invisible group-hover/new-badge:opacity-100 group-hover/new-badge:visible bg-gradient-to-br from-[#fdf6ee] to-[#fef3e8] dark:from-[#242830] dark:to-[#2a2f3a] border border-[#f6e7cc] dark:border-[#393f4d] text-gray-900 dark:text-amber-100 text-xs rounded-lg py-2 px-3 shadow-xl whitespace-nowrap z-50 transition-all duration-200 pointer-events-auto">
                                                                 {{ __('What\'s New') }}: {{ $item['description'] ?? $item['name'] }}
-                                                                <div class="absolute top-full right-3 -mt-1 w-2 h-2 bg-[#fdf6ee] dark:bg-[#242830] border border-[#f6e7cc] dark:border-[#393f4d] transform rotate-45"></div>
-                                                            </div>
-                                                        </span>
-                                                    </div>
-                                                @endif
-                                                
-                                                @if(isset($item['access']) && $item['access'] === false)
-                                                    <div class="lock-badge relative flex items-center group">
-                                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-amber-100 to-amber-50 dark:from-[#23272f] dark:to-[#2a2e36] text-amber-700 dark:text-amber-200 text-xs font-semibold rounded-full border border-amber-200 dark:border-[#4c5363] transition-all hover:scale-105 shadow-sm">
-                                                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
-                                                            </svg>
-                                                            <!-- Tooltip -->
-                                                            <div class="absolute right-0 bottom-full mb-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible bg-gradient-to-br from-[#fdf6ee] to-[#fef3e8] dark:from-[#242830] dark:to-[#2a2f3a] border border-[#f6e7cc] dark:border-[#393f4d] text-gray-900 dark:text-amber-100 text-xs rounded-lg py-2 px-3 shadow-xl whitespace-nowrap z-50 transition-all duration-200 pointer-events-auto">
-                                                                {{ __('Upgrade to unlock this feature') }}
                                                                 <div class="absolute top-full right-3 -mt-1 w-2 h-2 bg-[#fdf6ee] dark:bg-[#242830] border border-[#f6e7cc] dark:border-[#393f4d] transform rotate-45"></div>
                                                             </div>
                                                         </span>

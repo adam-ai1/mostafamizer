@@ -95,18 +95,23 @@
 
                                                 @foreach ($ruleValue as $rKey => $rValue)
                                                     @if ($field['name'] != 'service' && $field['type'] == 'dropdown')
+                                                        @if ($field['name'] === 'size')
+                                                            {{-- Hidden size input with default value --}}
+                                                            @php
+                                                                $defaultSize = $field['default_value'] ?? (isset($field['value']) && is_array($field['value']) ? reset($field['value']) : '1024x1024');
+                                                            @endphp
+                                                            <input type="hidden" name="{{ $providerName . '[' . $field['name'] . ']' . '['. $rKey .']' }}" value="{{ $defaultSize }}" />
+                                                        @else
                                                         <div class="custom-dropdown-arrow font-normal text-14 text-[#141414] dark:text-white {{ count($field['value']) <= 1 ? 'hidden' : '' }}"  data-attr="{{ $rKey }}">
                                                             <label>{{ __($field['label'] ?? '') }}</label>
                                                             <select class="select block w-full mt-[3px] text-base leading-6 font-medium text-color-FFR bg-white bg-clip-padding bg-no-repeat dark:bg-[#333332] rounded-xl dark:rounded-2xl focus:text-color-2C focus:bg-white focus:border-color-89 focus:outline-none form-control {{ $field['name'] == 'model' ? 'model-class' : ''}}" @if(isset($field['required']) &&  $field['required']) required @endif name="{{ $providerName . '[' . $field['name'] . ']' . '['. $rKey .']' }}" id="{{ $providerName . '[' . $field['name'] . ']' . '['. $rKey .']' }}">
                                                                 @if ($field['value'] ?? false)
                                                                     @foreach (array_intersect($field['value'], $rValue) as $value)
                                                                         @php
-                                                                            $isDisabled = $field['name'] === 'size' && !subscription('isAdminSubscribed');
                                                                             $isSelected = isset($field['default_value']) && $field['default_value'] == $value;
                                                                             $label = __(ucwords(str_replace(['-', '_'], ' ', $value)));
                                                                         @endphp
                                                                         <option value="{{ $value }}"
-                                                                            {{ $isDisabled ? ( boolval(subscription('getUserSubscription', auth()->id())) && !subscription('isValidResolution',  auth()->id(), $value) ? 'disabled' : '' ) : '' }}
                                                                             {{ $isSelected ? 'selected' : '' }}>
                                                                             {{ $label }}
                                                                         </option>
@@ -114,6 +119,7 @@
                                                                 @endif
                                                             </select>
                                                         </div>
+                                                        @endif
                                                     @endif
                                                     @if ($field['name'] == 'service')
                                                         <!-- Ensure the service dropdown is only rendered once -->
@@ -257,6 +263,13 @@
 
                                 <!-- General: If rules not applied to any input field -->
                                 @if (($field['visibility'] ?? false) && ($field['type'] ?? false) && $field['type'] == 'dropdown' && $rulesNotApplied)
+                                    @if ($field['name'] === 'size')
+                                        {{-- Hidden size input with default value --}}
+                                        @php
+                                            $defaultSize = $field['default_value'] ?? (isset($field['value']) && is_array($field['value']) ? reset($field['value']) : '1024x1024');
+                                        @endphp
+                                        <input type="hidden" name="{{ $providerName . '[' . $field['name'] . ']' }}" value="{{ $defaultSize }}" />
+                                    @else
                                     <div class="custom-dropdown-arrow font-normal text-14 text-[#141414] dark:text-white {{ count($field['value']) <= 1 ? 'hidden' : '' }}">
                                         <label>{{ __($field['label'] ?? '') }}</label>
                                         <select class="select block w-full mt-[3px] text-base leading-6 font-medium text-color-FFR bg-white bg-clip-padding bg-no-repeat dark:bg-[#333332] rounded-xl dark:rounded-2xl focus:text-color-2C focus:bg-white focus:border-color-89 focus:outline-none form-control {{ $field['name'] == 'model' ? "model-class" : ''}}" @if(isset($field['required']) &&  $field['required']) required @endif name="{{ $providerName . '[' . $field['name'] . ']' }}" id="{{ $providerName . '[' . $field['name'] . ']' }}">
@@ -267,6 +280,7 @@
                                             @endif
                                         </select>
                                     </div>
+                                    @endif
                                 @endif
                                 
                                 @if (($field['visibility'] ?? false) && ($field['type'] ?? false) && $field['type'] == 'textarea' && $rulesNotApplied)
